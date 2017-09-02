@@ -82,19 +82,18 @@ $(() => {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/** コンポーネント名 */
 const COMPONENT_NAME = "application";
-const COMPONENT_ID = "application-template";
 class Application {
     constructor() {
         this.component = COMPONENT_NAME;
         this.text1 = "";
-        // let x: JQuery<HTMLElement> = $("");
+        ko.track(this);
     }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = Application;
 
 ko.components.register(COMPONENT_NAME, {
-    // template: { element: COMPONENT_ID },
     template: __webpack_require__(2),
     viewModel: Application
 });

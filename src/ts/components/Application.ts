@@ -1,5 +1,5 @@
+/** コンポーネント名 */
 const COMPONENT_NAME: string = "application";
-const COMPONENT_ID: string = "application-template";
 
 export default class Application {
 
@@ -11,12 +11,11 @@ export default class Application {
         this.component = COMPONENT_NAME;
         this.text1 = "";
 
-        // let x: JQuery<HTMLElement> = $("");
+        ko.track(this);
     }
 }
 
 ko.components.register(COMPONENT_NAME, {
-    // template: { element: COMPONENT_ID },
     template: require("./Application.html"),
     viewModel: Application
 });

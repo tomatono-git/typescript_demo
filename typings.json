@@ -1,0 +1,10 @@
+{
+  "name": "typescript_demo",
+  "dependencies": {},
+  "globalDevDependencies": {
+    "knockout.es5": "registry:dt/knockout.es5#0.0.0+20161118220656"
+  },
+  "devDependencies": {
+    "knockout.mapping": "registry:dt/knockout.mapping#2.0.0+20160510010627"
+  }
+}

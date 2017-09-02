@@ -1,0 +1,35 @@
+{
+  "name": "typescript_demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "css-loader": "^0.28.7",
+    "file-loader": "^0.11.2",
+    "jquery": "^3.2.1",
+    "knockout": "^3.4.2",
+    "knockout-es5": "^0.4.5",
+    "knockout-mapping": "^2.6.0"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.2.12",
+    "@types/knockout": "^3.4.45",
+    "@types/node": "^8.0.26",
+    "awesome-typescript-loader": "^3.2.3",
+    "html-loader": "^0.5.1",
+    "rimraf": "^2.6.1",
+    "source-map-loader": "^0.2.1",
+    "ts-loader": "^2.3.4",
+    "typescript": "^2.5.2",
+    "typings": "^2.1.1",
+    "webpack": "^3.5.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cleanbuild": "npm run clean & npm run build",
+    "clean": "rimraf ./build/js",
+    "build": "webpack --display-error-details"
+  },
+  "author": "",
+  "license": "ISC"
+}

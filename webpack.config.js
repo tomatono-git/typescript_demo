@@ -11,7 +11,10 @@ module.exports = {
     devtool: 'source-map',
 
     module: {
-
+        // loaders: [
+        //     { test: /\.html$/, loaders: ['style-loader', 'html-loader'] },
+        //     { test: /\.css$/, loaders: ['style-loader', 'css-loader'] }
+        // ],
         rules: [
             {
                 test: /\.ts$/,
@@ -23,6 +26,10 @@ module.exports = {
             {
                 test: /\.html$/,
                 loader: "html-loader"
+            },
+            {
+                test: /\.css$/,
+                loaders: ['style-loader', "css-loader"]
             },
             {
                 enforce: 'pre',

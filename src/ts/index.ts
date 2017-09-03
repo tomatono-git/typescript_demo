@@ -1,4 +1,4 @@
-import Application from "./components/Application";
+import Application from "./view/components/Application/Application";
 
 $(() => {
     let vm = new Application();

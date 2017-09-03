@@ -99,7 +99,7 @@ class Application {
         ko.track(this);
     }
     onCreateViewModel() {
-        console.log("onCreateViewModel()");
+        console.log("Application#onCreateViewModel()");
         Split(['#subtree', '#main-contents'], {
             sizes: [15, 85],
             minSize: 100,
@@ -152,12 +152,7 @@ class TopComponent {
         ko.track(this);
     }
     onCreateViewModel() {
-        console.log("onCreateViewModel()");
-        // Split(['#subtree', '#main-contents'], {
-        //     sizes: [25, 75],
-        //     minSize: 200,
-        //     // direction: 'horizontal'
-        // });
+        console.log("TopComponent#onCreateViewModel()");
     }
     onClickDisplayBtn(target, event) {
         let message = this.createDisplayMesasge();
@@ -206,7 +201,7 @@ ko.components.register(COMPONENT_NAME, {
 /* 3 */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n    <div>\r\n        <label>text1:<input data-bind=\"value: text1\"></label>\r\n    </div>\r\n    <div>\r\n        <label>text2:<input data-bind=\"textInput: text2\"></label>\r\n    </div>\r\n    <div>\r\n        <label>textArea1:<input data-bind=\"textInput: textArea1\"></label>\r\n    </div>\r\n    <div>\r\n        <label>radio1=1:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio1\"></label>\r\n        <label>radio1=2:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio2\"></label>\r\n        <label>radio1=3:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio3\"></label>\r\n    </div>\r\n\r\n    <div>\r\n        <label>checkBox=1:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox1\"></label>\r\n        <label>checkBox=2:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox2\"></label>\r\n        <label>checkBox=3:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox3\"></label>\r\n    </div>\r\n\r\n    <button data-bind=\"event: { click: onClickDisplayBtn }\">表示</button>\r\n</div>";
+module.exports = "<div>\r\n    <div>\r\n        <label>text1:<input data-bind=\"value: text1\"></label>\r\n    </div>\r\n    <div>\r\n        <label>text2:<input data-bind=\"textInput: text2\"></label>\r\n    </div>\r\n    <div>\r\n        <label>textArea1:<textarea data-bind=\"textInput: textArea1\"></textarea></label>\r\n    </div>\r\n    <div>\r\n        <label>radio1=1:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio1\"></label>\r\n        <label>radio1=2:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio2\"></label>\r\n        <label>radio1=3:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio3\"></label>\r\n    </div>\r\n\r\n    <div>\r\n        <label>checkBox=1:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox1\"></label>\r\n        <label>checkBox=2:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox2\"></label>\r\n        <label>checkBox=3:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox3\"></label>\r\n    </div>\r\n\r\n    <button data-bind=\"event: { click: onClickDisplayBtn }\">表示</button>\r\n</div>";
 
 /***/ }),
 /* 4 */
@@ -226,12 +221,7 @@ class CenterComponent {
         ko.track(this);
     }
     onCreateViewModel() {
-        console.log("onCreateViewModel()");
-        // Split(['#subtree', '#main-contents'], {
-        //     sizes: [25, 75],
-        //     minSize: 200,
-        //     // direction: 'horizontal'
-        // });
+        console.log("CenterComponent#onCreateViewModel()");
     }
     onClickDisplayBtn(target, event) {
         let message = this.createDisplayMesasge();
@@ -280,7 +270,7 @@ ko.components.register(COMPONENT_NAME, {
 /* 5 */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n    <div>\r\n        <label>text1:<input data-bind=\"value: text1\"></label>\r\n    </div>\r\n    <div>\r\n        <label>text2:<input data-bind=\"textInput: text2\"></label>\r\n    </div>\r\n    <div>\r\n        <label>textArea1:<input data-bind=\"textInput: textArea1\"></label>\r\n    </div>\r\n    <div>\r\n        <label>radio1=1:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio1\"></label>\r\n        <label>radio1=2:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio2\"></label>\r\n        <label>radio1=3:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio3\"></label>\r\n    </div>\r\n\r\n    <div>\r\n        <label>checkBox=1:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox1\"></label>\r\n        <label>checkBox=2:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox2\"></label>\r\n        <label>checkBox=3:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox3\"></label>\r\n    </div>\r\n\r\n    <button data-bind=\"event: { click: onClickDisplayBtn }\">表示</button>\r\n</div>";
+module.exports = "<div>\r\n    <div>\r\n        <label>text1:<input data-bind=\"value: text1\"></label>\r\n    </div>\r\n    <div>\r\n        <label>text2:<input data-bind=\"textInput: text2\"></label>\r\n    </div>\r\n    <div>\r\n        <label>textArea1:<textarea data-bind=\"textInput: textArea1\"></textarea></label>\r\n    </div>\r\n    <div>\r\n        <label>radio1=1:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio1\"></label>\r\n        <label>radio1=2:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio2\"></label>\r\n        <label>radio1=3:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio3\"></label>\r\n    </div>\r\n\r\n    <div>\r\n        <label>checkBox=1:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox1\"></label>\r\n        <label>checkBox=2:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox2\"></label>\r\n        <label>checkBox=3:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox3\"></label>\r\n    </div>\r\n\r\n    <button data-bind=\"event: { click: onClickDisplayBtn }\">表示</button>\r\n</div>";
 
 /***/ }),
 /* 6 */
@@ -300,12 +290,7 @@ class BottomComponent {
         ko.track(this);
     }
     onCreateViewModel() {
-        console.log("onCreateViewModel()");
-        // Split(['#subtree', '#main-contents'], {
-        //     sizes: [25, 75],
-        //     minSize: 200,
-        //     // direction: 'horizontal'
-        // });
+        console.log("BottomComponent#onCreateViewModel()");
     }
     onClickDisplayBtn(target, event) {
         let message = this.createDisplayMesasge();

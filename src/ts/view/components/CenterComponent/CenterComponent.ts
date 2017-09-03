@@ -24,13 +24,7 @@ export default class CenterComponent {
     }
 
     onCreateViewModel() {
-        console.log("onCreateViewModel()");
-
-        // Split(['#subtree', '#main-contents'], {
-        //     sizes: [25, 75],
-        //     minSize: 200,
-        //     // direction: 'horizontal'
-        // });
+        console.log("CenterComponent#onCreateViewModel()");
     }
 
     onClickDisplayBtn(target: this, event: any) {

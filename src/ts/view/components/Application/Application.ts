@@ -24,7 +24,7 @@ export default class Application {
     }
 
     onCreateViewModel() {
-        console.log("onCreateViewModel()");
+        console.log("Application#onCreateViewModel()");
 
         Split(['#subtree', '#main-contents'], {
             sizes: [15, 85],

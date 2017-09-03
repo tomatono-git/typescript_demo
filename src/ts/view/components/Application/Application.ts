@@ -1,3 +1,7 @@
+import TopComponent from "../TopComponent/TopComponent";
+import CenterComponent from "../CenterComponent/CenterComponent";
+import BottomComponent from "../BottomComponent/BottomComponent";
+
 /** コンポーネント名 */
 const COMPONENT_NAME: string = "application";
 
@@ -5,38 +9,34 @@ export default class Application {
 
     component: string;
 
-    text1: string;
-    text2: string;
-    textArea1: string;
-    radio1: string;
-    checkBoxCheckes: string[];
+    topComponent: TopComponent;
+    centerComponent: CenterComponent;
+    bottomComponent: BottomComponent;
 
     constructor() {
         this.component = COMPONENT_NAME;
-        this.text1 = "";
-        this.text2 = "";
-        this.textArea1 = "";
-        this.radio1 = "";
-        this.checkBoxCheckes = [];
+
+        this.topComponent = new TopComponent();
+        this.centerComponent = new CenterComponent();
+        this.bottomComponent = new BottomComponent();
 
         ko.track(this);
-
     }
 
     onCreateViewModel() {
         console.log("onCreateViewModel()");
 
         Split(['#subtree', '#main-contents'], {
-            sizes: [25, 75],
-            minSize: 200,
+            sizes: [15, 85],
+            minSize: 100,
             // direction: 'horizontal'
         });
     }
 
-    onClickDisplayBtn(target: this, event: any) {
-        let message = `text1=${this.text1}, text2=${this.text2}, textArea1=${this.textArea1}, radio1=${this.radio1}, checkBoxCheckes=${this.checkBoxCheckes}`;
-        alert(message);
-    }
+    // onClickDisplayBtn(target: this, event: any) {
+    //     let message = `text1=${this.text1}, text2=${this.text2}, textArea1=${this.textArea1}, radio1=${this.radio1}, checkBoxCheckes=${this.checkBoxCheckes}`;
+    //     alert(message);
+    // }
 }
 
 require("./Application.css");

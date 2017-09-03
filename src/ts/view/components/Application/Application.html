@@ -1,9 +1,23 @@
 <div>
+
     <div id="subtree" class="split split-horizontal">
         subtree
     </div>
     <div id="main-contents" class="split split-horizontal">
+
         <div>
+            <div data-bind="component: 'top-component'"></div>
+        </div>
+
+        <div>
+            <div data-bind="component: 'center-component'"></div>
+        </div>
+
+        <div>
+            <div data-bind="component: 'bottom-component'"></div>
+        </div>
+
+        <!-- <div>
             <label>text1:<input data-bind="value: text1"></label>
         </div>
         <div>
@@ -24,6 +38,6 @@
             <label>checkBox=3:<input type="checkbox" data-bind="checked: checkBoxCheckes" value="checkbox3"></label>
         </div>
 
-        <button data-bind="event: { click: onClickDisplayBtn }">表示</button>
+        <button data-bind="event: { click: onClickDisplayBtn }">表示</button> -->
     </div>
 </div>

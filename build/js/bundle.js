@@ -82,37 +82,37 @@ $(() => {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TopComponent_TopComponent__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CenterComponent_CenterComponent__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__BottomComponent_BottomComponent__ = __webpack_require__(6);
+
+
+
 /** コンポーネント名 */
 const COMPONENT_NAME = "application";
 class Application {
     constructor() {
         this.component = COMPONENT_NAME;
-        this.text1 = "";
-        this.text2 = "";
-        this.textArea1 = "";
-        this.radio1 = "";
-        this.checkBoxCheckes = [];
+        this.topComponent = new __WEBPACK_IMPORTED_MODULE_0__TopComponent_TopComponent__["a" /* default */]();
+        this.centerComponent = new __WEBPACK_IMPORTED_MODULE_1__CenterComponent_CenterComponent__["a" /* default */]();
+        this.bottomComponent = new __WEBPACK_IMPORTED_MODULE_2__BottomComponent_BottomComponent__["a" /* default */]();
         ko.track(this);
     }
     onCreateViewModel() {
         console.log("onCreateViewModel()");
         Split(['#subtree', '#main-contents'], {
-            sizes: [25, 75],
-            minSize: 200,
+            sizes: [15, 85],
+            minSize: 100,
         });
-    }
-    onClickDisplayBtn(target, event) {
-        let message = `text1=${this.text1}, text2=${this.text2}, textArea1=${this.textArea1}, radio1=${this.radio1}, checkBoxCheckes=${this.checkBoxCheckes}`;
-        alert(message);
     }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = Application;
 
-__webpack_require__(2);
+__webpack_require__(8);
 // require("./images/split/horizontal.png");
 // require("./images/split/vertical.png");
 ko.components.register(COMPONENT_NAME, {
-    template: __webpack_require__(7),
+    template: __webpack_require__(13),
     viewModel: {
         createViewModel(params, componentInfo) {
             let vm;
@@ -136,12 +136,234 @@ ko.components.register(COMPONENT_NAME, {
 
 /***/ }),
 /* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/** コンポーネント名 */
+const COMPONENT_NAME = "top-component";
+class TopComponent {
+    constructor() {
+        this.component = COMPONENT_NAME;
+        this.text1 = "";
+        this.text2 = "";
+        this.textArea1 = "";
+        this.radio1 = "";
+        this.checkBoxCheckes = [];
+        ko.track(this);
+    }
+    onCreateViewModel() {
+        console.log("onCreateViewModel()");
+        // Split(['#subtree', '#main-contents'], {
+        //     sizes: [25, 75],
+        //     minSize: 200,
+        //     // direction: 'horizontal'
+        // });
+    }
+    onClickDisplayBtn(target, event) {
+        let message = this.createDisplayMesasge();
+        alert(message);
+    }
+    createDisplayMesasge() {
+        let buff = [];
+        buff.push(`text1=${this.text1}`);
+        buff.push(`text2=${this.text2}`);
+        buff.push(`textArea1=${this.textArea1}`);
+        buff.push(`radio1=${this.radio1}`);
+        buff.push(`checkBoxCheckes=${this.checkBoxCheckes}`);
+        let message = buff.join(", ");
+        return message;
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = TopComponent;
+
+// require("./Application.css");
+// require("./images/split/horizontal.png");
+// require("./images/split/vertical.png");
+ko.components.register(COMPONENT_NAME, {
+    template: __webpack_require__(3),
+    viewModel: {
+        createViewModel(params, componentInfo) {
+            let vm;
+            if (params instanceof TopComponent) {
+                vm = params;
+            }
+            else {
+                if (params == null) {
+                    vm = new TopComponent();
+                    vm.onCreateViewModel();
+                }
+                else {
+                    vm = params.options;
+                }
+            }
+            return vm;
+        }
+    }
+});
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+module.exports = "<div>\r\n    <div>\r\n        <label>text1:<input data-bind=\"value: text1\"></label>\r\n    </div>\r\n    <div>\r\n        <label>text2:<input data-bind=\"textInput: text2\"></label>\r\n    </div>\r\n    <div>\r\n        <label>textArea1:<input data-bind=\"textInput: textArea1\"></label>\r\n    </div>\r\n    <div>\r\n        <label>radio1=1:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio1\"></label>\r\n        <label>radio1=2:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio2\"></label>\r\n        <label>radio1=3:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio3\"></label>\r\n    </div>\r\n\r\n    <div>\r\n        <label>checkBox=1:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox1\"></label>\r\n        <label>checkBox=2:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox2\"></label>\r\n        <label>checkBox=3:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox3\"></label>\r\n    </div>\r\n\r\n    <button data-bind=\"event: { click: onClickDisplayBtn }\">表示</button>\r\n</div>";
+
+/***/ }),
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/** コンポーネント名 */
+const COMPONENT_NAME = "center-component";
+class CenterComponent {
+    constructor() {
+        this.component = COMPONENT_NAME;
+        this.text1 = "";
+        this.text2 = "";
+        this.textArea1 = "";
+        this.radio1 = "";
+        this.checkBoxCheckes = [];
+        ko.track(this);
+    }
+    onCreateViewModel() {
+        console.log("onCreateViewModel()");
+        // Split(['#subtree', '#main-contents'], {
+        //     sizes: [25, 75],
+        //     minSize: 200,
+        //     // direction: 'horizontal'
+        // });
+    }
+    onClickDisplayBtn(target, event) {
+        let message = this.createDisplayMesasge();
+        alert(message);
+    }
+    createDisplayMesasge() {
+        let buff = [];
+        buff.push(`text1=${this.text1}`);
+        buff.push(`text2=${this.text2}`);
+        buff.push(`textArea1=${this.textArea1}`);
+        buff.push(`radio1=${this.radio1}`);
+        buff.push(`checkBoxCheckes=${this.checkBoxCheckes}`);
+        let message = buff.join(", ");
+        return message;
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = CenterComponent;
+
+// require("./Application.css");
+// require("./images/split/horizontal.png");
+// require("./images/split/vertical.png");
+ko.components.register(COMPONENT_NAME, {
+    template: __webpack_require__(5),
+    viewModel: {
+        createViewModel(params, componentInfo) {
+            let vm;
+            if (params instanceof CenterComponent) {
+                vm = params;
+            }
+            else {
+                if (params == null) {
+                    vm = new CenterComponent();
+                    vm.onCreateViewModel();
+                }
+                else {
+                    vm = params.options;
+                }
+            }
+            return vm;
+        }
+    }
+});
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+module.exports = "<div>\r\n    <div>\r\n        <label>text1:<input data-bind=\"value: text1\"></label>\r\n    </div>\r\n    <div>\r\n        <label>text2:<input data-bind=\"textInput: text2\"></label>\r\n    </div>\r\n    <div>\r\n        <label>textArea1:<input data-bind=\"textInput: textArea1\"></label>\r\n    </div>\r\n    <div>\r\n        <label>radio1=1:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio1\"></label>\r\n        <label>radio1=2:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio2\"></label>\r\n        <label>radio1=3:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio3\"></label>\r\n    </div>\r\n\r\n    <div>\r\n        <label>checkBox=1:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox1\"></label>\r\n        <label>checkBox=2:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox2\"></label>\r\n        <label>checkBox=3:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox3\"></label>\r\n    </div>\r\n\r\n    <button data-bind=\"event: { click: onClickDisplayBtn }\">表示</button>\r\n</div>";
+
+/***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/** コンポーネント名 */
+const COMPONENT_NAME = "bottom-component";
+class BottomComponent {
+    constructor() {
+        this.component = COMPONENT_NAME;
+        this.text1 = "";
+        this.text2 = "";
+        this.textArea1 = "";
+        this.radio1 = "";
+        this.checkBoxCheckes = [];
+        ko.track(this);
+    }
+    onCreateViewModel() {
+        console.log("onCreateViewModel()");
+        // Split(['#subtree', '#main-contents'], {
+        //     sizes: [25, 75],
+        //     minSize: 200,
+        //     // direction: 'horizontal'
+        // });
+    }
+    onClickDisplayBtn(target, event) {
+        let message = this.createDisplayMesasge();
+        alert(message);
+    }
+    createDisplayMesasge() {
+        let buff = [];
+        buff.push(`text1=${this.text1}`);
+        buff.push(`text2=${this.text2}`);
+        buff.push(`textArea1=${this.textArea1}`);
+        buff.push(`radio1=${this.radio1}`);
+        buff.push(`checkBoxCheckes=${this.checkBoxCheckes}`);
+        let message = buff.join(", ");
+        return message;
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = BottomComponent;
+
+// require("./Application.css");
+// require("./images/split/horizontal.png");
+// require("./images/split/vertical.png");
+ko.components.register(COMPONENT_NAME, {
+    template: __webpack_require__(7),
+    viewModel: {
+        createViewModel(params, componentInfo) {
+            let vm;
+            if (params instanceof BottomComponent) {
+                vm = params;
+            }
+            else {
+                if (params == null) {
+                    vm = new BottomComponent();
+                    vm.onCreateViewModel();
+                }
+                else {
+                    vm = params.options;
+                }
+            }
+            return vm;
+        }
+    }
+});
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+module.exports = "<div>\r\n    <div>\r\n        <label>text1:<input data-bind=\"value: text1\"></label>\r\n    </div>\r\n    <div>\r\n        <label>text2:<input data-bind=\"textInput: text2\"></label>\r\n    </div>\r\n    <div>\r\n        <label>textArea1:<input data-bind=\"textInput: textArea1\"></label>\r\n    </div>\r\n    <div>\r\n        <label>radio1=1:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio1\"></label>\r\n        <label>radio1=2:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio2\"></label>\r\n        <label>radio1=3:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio3\"></label>\r\n    </div>\r\n\r\n    <div>\r\n        <label>checkBox=1:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox1\"></label>\r\n        <label>checkBox=2:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox2\"></label>\r\n        <label>checkBox=3:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox3\"></label>\r\n    </div>\r\n\r\n    <button data-bind=\"event: { click: onClickDisplayBtn }\">表示</button>\r\n</div>";
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(3);
+var content = __webpack_require__(9);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -149,7 +371,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(5)(content, options);
+var update = __webpack_require__(11)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -166,10 +388,10 @@ if(false) {
 }
 
 /***/ }),
-/* 3 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(4)(undefined);
+exports = module.exports = __webpack_require__(10)(undefined);
 // imports
 
 
@@ -180,7 +402,7 @@ exports.push([module.i, "html, body {\r\n    height: 100%;\r\n}\r\n\r\nbody {\r\
 
 
 /***/ }),
-/* 4 */
+/* 10 */
 /***/ (function(module, exports) {
 
 /*
@@ -262,7 +484,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 5 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -308,7 +530,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(6);
+var	fixUrls = __webpack_require__(12);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -621,7 +843,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 6 */
+/* 12 */
 /***/ (function(module, exports) {
 
 
@@ -716,10 +938,10 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 7 */
+/* 13 */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n    <div id=\"subtree\" class=\"split split-horizontal\">\r\n        subtree\r\n    </div>\r\n    <div id=\"main-contents\" class=\"split split-horizontal\">\r\n        <div>\r\n            <label>text1:<input data-bind=\"value: text1\"></label>\r\n        </div>\r\n        <div>\r\n            <label>text2:<input data-bind=\"textInput: text2\"></label>\r\n        </div>\r\n        <div>\r\n            <label>textArea1:<input data-bind=\"textInput: textArea1\"></label>\r\n        </div>\r\n        <div>\r\n            <label>radio1=1:<input type=\"radio\" data-bind=\"checked: radio1\" value=\"radio1\"></label>\r\n            <label>radio1=2:<input type=\"radio\" data-bind=\"checked: radio1\" value=\"radio2\"></label>\r\n            <label>radio1=3:<input type=\"radio\" data-bind=\"checked: radio1\" value=\"radio3\"></label>\r\n        </div>\r\n\r\n        <div>\r\n            <label>checkBox=1:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox1\"></label>\r\n            <label>checkBox=2:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox2\"></label>\r\n            <label>checkBox=3:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox3\"></label>\r\n        </div>\r\n\r\n        <button data-bind=\"event: { click: onClickDisplayBtn }\">表示</button>\r\n    </div>\r\n</div>";
+module.exports = "<div>\r\n\r\n    <div id=\"subtree\" class=\"split split-horizontal\">\r\n        subtree\r\n    </div>\r\n    <div id=\"main-contents\" class=\"split split-horizontal\">\r\n\r\n        <div>\r\n            <div data-bind=\"component: 'top-component'\"></div>\r\n        </div>\r\n\r\n        <div>\r\n            <div data-bind=\"component: 'center-component'\"></div>\r\n        </div>\r\n\r\n        <div>\r\n            <div data-bind=\"component: 'bottom-component'\"></div>\r\n        </div>\r\n\r\n        <!-- <div>\r\n            <label>text1:<input data-bind=\"value: text1\"></label>\r\n        </div>\r\n        <div>\r\n            <label>text2:<input data-bind=\"textInput: text2\"></label>\r\n        </div>\r\n        <div>\r\n            <label>textArea1:<input data-bind=\"textInput: textArea1\"></label>\r\n        </div>\r\n        <div>\r\n            <label>radio1=1:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio1\"></label>\r\n            <label>radio1=2:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio2\"></label>\r\n            <label>radio1=3:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio3\"></label>\r\n        </div>\r\n\r\n        <div>\r\n            <label>checkBox=1:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox1\"></label>\r\n            <label>checkBox=2:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox2\"></label>\r\n            <label>checkBox=3:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox3\"></label>\r\n        </div>\r\n\r\n        <button data-bind=\"event: { click: onClickDisplayBtn }\">表示</button> -->\r\n    </div>\r\n</div>";
 
 /***/ })
 /******/ ]);

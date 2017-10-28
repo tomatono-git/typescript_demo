@@ -1,23 +1,47 @@
 <div>
     <div>
-        <label>text1:<input data-bind="value: text1"></label>
+        <button data-bind="event: { click: onClickPromiseTestBtn }">Promise Test</button>
     </div>
     <div>
-        <label>text2:<input data-bind="textInput: text2"></label>
+        <button data-bind="event: { click: onClickTupleTestBtn }">Tuple Test</button>
     </div>
     <div>
-        <label>textArea1:<textarea data-bind="textInput: textArea1"></textarea></label>
+        <label>text1:
+            <input data-bind="value: text1">
+        </label>
     </div>
     <div>
-        <label>radio1=1:<input type="radio" name="radioGroup" data-bind="checked: radio1" value="radio1"></label>
-        <label>radio1=2:<input type="radio" name="radioGroup" data-bind="checked: radio1" value="radio2"></label>
-        <label>radio1=3:<input type="radio" name="radioGroup" data-bind="checked: radio1" value="radio3"></label>
+        <label>text2:
+            <input data-bind="textInput: text2">
+        </label>
+    </div>
+    <div>
+        <label>textArea1:
+            <textarea data-bind="textInput: textArea1"></textarea>
+        </label>
+    </div>
+    <div>
+        <label>radio1=1:
+            <input type="radio" name="radioGroup" data-bind="checked: radio1" value="radio1">
+        </label>
+        <label>radio1=2:
+            <input type="radio" name="radioGroup" data-bind="checked: radio1" value="radio2">
+        </label>
+        <label>radio1=3:
+            <input type="radio" name="radioGroup" data-bind="checked: radio1" value="radio3">
+        </label>
     </div>
 
     <div>
-        <label>checkBox=1:<input type="checkbox" data-bind="checked: checkBoxCheckes" value="checkbox1"></label>
-        <label>checkBox=2:<input type="checkbox" data-bind="checked: checkBoxCheckes" value="checkbox2"></label>
-        <label>checkBox=3:<input type="checkbox" data-bind="checked: checkBoxCheckes" value="checkbox3"></label>
+        <label>checkBox=1:
+            <input type="checkbox" data-bind="checked: checkBoxCheckes" value="checkbox1">
+        </label>
+        <label>checkBox=2:
+            <input type="checkbox" data-bind="checked: checkBoxCheckes" value="checkbox2">
+        </label>
+        <label>checkBox=3:
+            <input type="checkbox" data-bind="checked: checkBoxCheckes" value="checkbox3">
+        </label>
     </div>
 
     <button data-bind="event: { click: onClickDisplayBtn }">表示</button>

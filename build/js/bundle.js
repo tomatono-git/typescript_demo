@@ -158,6 +158,108 @@ class TopComponent {
         let message = this.createDisplayMesasge();
         alert(message);
     }
+    callService() {
+        try {
+            console.log('callService START');
+            let promise = new Promise(() => {
+                let dummy = new DummyData('value1');
+                console.log('callService:dummy=%o', dummy.toString());
+                return dummy;
+            });
+            return promise;
+        }
+        finally {
+            console.log('callService END');
+        }
+    }
+    createData() {
+        try {
+            console.log('createData START');
+            let promise = this.callService().then((data) => {
+                console.log('createData:data=%o', data.toString());
+                let tuple = [data, 'createData'];
+                return tuple;
+            });
+            return promise;
+        }
+        finally {
+            console.log('createData END');
+        }
+    }
+    onClickPromiseTestBtn(target, event) {
+        console.debug('onClickPromiseTestBtn START');
+        // alert('onClickPromiseTestBtn START');
+        let promise = this.createData().then((data) => {
+            // func(dumy)
+            let [dummy, str] = data;
+            console.log('1:dummy=%o, str=%o', dummy.toString(), str);
+            dummy.key2 = 'value22';
+            console.log('2-1:dummy=%o, str=%o', dummy.toString(), str);
+            return dummy;
+        });
+        promise.then((data) => {
+            console.log('2-2:data=%o', data.toString());
+            data.key3 = 'value333';
+            console.log('3-1:data=%o', data.toString());
+            return data;
+        }).then((data) => {
+            console.debug('then-3-2:data=%o', data.toString());
+            data.key4 = 'value4444';
+            console.debug('throw-4 data=%o', data.toString());
+            throw data;
+        }).then((data) => {
+            console.debug('then:data=%o', data);
+        }).catch((data) => {
+            console.error('catch:data=%o', data.toString());
+        });
+        console.debug('onClickPromiseTestBtn END');
+    }
+    onClickTupleTestBtn(target, event) {
+        let promise = new Promise((resolve) => {
+            let list = [...Array(5).keys()].map((i) => {
+                return new DummyData(`val_${i}`, '', '', '', i);
+            });
+            console.log('list=%o', list);
+            resolve(list);
+        }).then((list) => {
+            console.log('then');
+            let promiseList = list.map((dummy) => {
+                return new Promise((resolve) => {
+                    let data = [dummy, dummy.key1 + '_str1'];
+                    console.log('list.map - new Promise: data=%o', data);
+                    resolve(data);
+                }).then(([dumy, str]) => {
+                    console.log('list.map - then: dumy=%o, str=%o', dumy, str);
+                    let num = (dummy.num != undefined) ? dummy.num : -1;
+                    let data = [dummy, str, num];
+                    return data;
+                });
+            });
+            console.log('promiseList=%o', promiseList);
+            let allList = Promise.all(promiseList);
+            console.log('allList=%o', allList);
+            return allList;
+        });
+        promise.then((list) => {
+            console.debug('promise.then: list', list);
+            return list.map(data => {
+                let [dummy, str, num] = data;
+                let newData = [dummy, str, num, dummy.key1 + '_str2'];
+                console.log('Promise.all: newData', newData);
+                return newData;
+            });
+        }).then((list) => {
+            list.forEach((data) => {
+                console.debug('promise.then - last: data', data);
+            });
+            throw list;
+        }).catch((list) => {
+            console.error(list);
+        });
+        // promise.then((data) => {
+        //     console.debug('promise.then: data', data);
+        // });
+    }
     createDisplayMesasge() {
         let buff = [];
         buff.push(`text1=${this.text1}`);
@@ -171,6 +273,21 @@ class TopComponent {
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = TopComponent;
 
+class DummyData {
+    // key1: string
+    // key2: string
+    // key3: string
+    constructor(key1, key2, key3, key4, num) {
+        this.key1 = key1;
+        this.key2 = key2;
+        this.key3 = key3;
+        this.key4 = key4;
+        this.num = num;
+    }
+    toString() {
+        return `key1=${this.key1},key2=${this.key2},key3=${this.key3},key4=${this.key4},num=${this.num}`;
+    }
+}
 // require("./Application.css");
 // require("./images/split/horizontal.png");
 // require("./images/split/vertical.png");
@@ -201,7 +318,7 @@ ko.components.register(COMPONENT_NAME, {
 /* 3 */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n    <div>\r\n        <label>text1:<input data-bind=\"value: text1\"></label>\r\n    </div>\r\n    <div>\r\n        <label>text2:<input data-bind=\"textInput: text2\"></label>\r\n    </div>\r\n    <div>\r\n        <label>textArea1:<textarea data-bind=\"textInput: textArea1\"></textarea></label>\r\n    </div>\r\n    <div>\r\n        <label>radio1=1:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio1\"></label>\r\n        <label>radio1=2:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio2\"></label>\r\n        <label>radio1=3:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio3\"></label>\r\n    </div>\r\n\r\n    <div>\r\n        <label>checkBox=1:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox1\"></label>\r\n        <label>checkBox=2:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox2\"></label>\r\n        <label>checkBox=3:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox3\"></label>\r\n    </div>\r\n\r\n    <button data-bind=\"event: { click: onClickDisplayBtn }\">表示</button>\r\n</div>";
+module.exports = "<div>\r\n    <div>\r\n        <button data-bind=\"event: { click: onClickPromiseTestBtn }\">Promise Test</button>\r\n    </div>\r\n    <div>\r\n        <button data-bind=\"event: { click: onClickTupleTestBtn }\">Tuple Test</button>\r\n    </div>\r\n    <div>\r\n        <label>text1:\r\n            <input data-bind=\"value: text1\">\r\n        </label>\r\n    </div>\r\n    <div>\r\n        <label>text2:\r\n            <input data-bind=\"textInput: text2\">\r\n        </label>\r\n    </div>\r\n    <div>\r\n        <label>textArea1:\r\n            <textarea data-bind=\"textInput: textArea1\"></textarea>\r\n        </label>\r\n    </div>\r\n    <div>\r\n        <label>radio1=1:\r\n            <input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio1\">\r\n        </label>\r\n        <label>radio1=2:\r\n            <input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio2\">\r\n        </label>\r\n        <label>radio1=3:\r\n            <input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio3\">\r\n        </label>\r\n    </div>\r\n\r\n    <div>\r\n        <label>checkBox=1:\r\n            <input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox1\">\r\n        </label>\r\n        <label>checkBox=2:\r\n            <input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox2\">\r\n        </label>\r\n        <label>checkBox=3:\r\n            <input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox3\">\r\n        </label>\r\n    </div>\r\n\r\n    <button data-bind=\"event: { click: onClickDisplayBtn }\">表示</button>\r\n</div>";
 
 /***/ }),
 /* 4 */

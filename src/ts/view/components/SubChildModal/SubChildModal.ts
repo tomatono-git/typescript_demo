@@ -1,5 +1,6 @@
 
-import { ModalBase } from "../IModal";
+import { ModalBase, ModalComponentParams } from "../IModal";
+import ChildModal from "../ChildModal/ChildModal";
 
 const COMPONENT_NAME = "sub-child-modal";
 const COMPONENT_ID = COMPONENT_NAME + '-id';
@@ -11,6 +12,12 @@ export default class SubChildModal extends ModalBase {
 
     constructor() {
         super(COMPONENT_NAME, COMPONENT_ID, TITLE);
+    }
+
+    onCreateViewModel(params: ModalComponentParams): void {
+        super.onCreateViewModel(params);
+        let parent = <ChildModal>this.component.params.parent;
+        parent.subChildModal = this;
     }
 }
 

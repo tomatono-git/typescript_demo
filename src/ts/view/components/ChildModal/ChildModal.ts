@@ -1,12 +1,17 @@
 
-import { ModalBase } from "../IModal";
+import { ModalBase, ModalComponentParams } from "../IModal";
 import SubChildModal from "../SubChildModal/SubChildModal";
+import ParentModal from "../ParentModal/ParentModal";
 
 const COMPONENT_NAME = "child-modal";
 const COMPONENT_ID = COMPONENT_NAME + '-id';
 const TITLE = "子モーダル";
 
 export default class ChildModal extends ModalBase {
+
+    static get COMPONENT_NAME(): string {
+        return COMPONENT_NAME;
+    }
 
     subChildModal: SubChildModal;
 
@@ -18,6 +23,12 @@ export default class ChildModal extends ModalBase {
         console.log("self=%o, event=%o", self, event);
 
         this.subChildModal.show();
+    }
+
+    onCreateViewModel(params: ModalComponentParams): void {
+        super.onCreateViewModel(params);
+        let parent = <ParentModal>this.component.params.parent;
+        parent.childModal = this;
     }
 }
 

@@ -1353,6 +1353,9 @@ class ParentModal extends __WEBPACK_IMPORTED_MODULE_0__IModal__["a" /* ModalBase
     }
     onClickShowModalBtn(self, event) {
         console.log("self=%o, event=%o", self, event);
+        console.log("childModel=%o", ko.components.get(__WEBPACK_IMPORTED_MODULE_1__ChildModal_ChildModal__["a" /* default */].COMPONENT_NAME, (definition) => {
+            console.log("definition=%o", definition);
+        }));
         this.childModal.show();
     }
 }
@@ -1370,7 +1373,7 @@ ko.components.register(COMPONENT_NAME, {
             else {
                 vm = new ParentModal();
                 vm.onCreateViewModel(params);
-                vm.childModal = new __WEBPACK_IMPORTED_MODULE_1__ChildModal_ChildModal__["a" /* default */]();
+                // vm.childModal = new ChildModal();
                 ko.track(vm);
             }
             return vm;
@@ -1392,12 +1395,20 @@ const COMPONENT_NAME = "child-modal";
 const COMPONENT_ID = COMPONENT_NAME + '-id';
 const TITLE = "子モーダル";
 class ChildModal extends __WEBPACK_IMPORTED_MODULE_0__IModal__["a" /* ModalBase */] {
+    static get COMPONENT_NAME() {
+        return COMPONENT_NAME;
+    }
     constructor() {
         super(COMPONENT_NAME, COMPONENT_ID, TITLE);
     }
     onClickShowModalBtn(self, event) {
         console.log("self=%o, event=%o", self, event);
         this.subChildModal.show();
+    }
+    onCreateViewModel(params) {
+        super.onCreateViewModel(params);
+        let parent = this.component.params.parent;
+        parent.childModal = this;
     }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = ChildModal;
@@ -1437,6 +1448,11 @@ class SubChildModal extends __WEBPACK_IMPORTED_MODULE_0__IModal__["a" /* ModalBa
     constructor() {
         super(COMPONENT_NAME, COMPONENT_ID, TITLE);
     }
+    onCreateViewModel(params) {
+        super.onCreateViewModel(params);
+        let parent = this.component.params.parent;
+        parent.subChildModal = this;
+    }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = SubChildModal;
 
@@ -1470,13 +1486,13 @@ module.exports = "<div class=\"modal fade\" data-bind=\"attr: { id: componentId 
 /* 21 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"modal fade\" data-bind=\"attr: { id: componentId }\" role=\"dialog\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog\">\r\n        <div class=\"modal-content\">\r\n\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n                    <span aria-hidden=\"true\">&times;</span>\r\n                </button>\r\n                <h4 class=\"modal-title\" data-bind=\"text: title\"></h4>\r\n            </div>\r\n\r\n            <div class=\"modal-body\">\r\n                <div>\r\n                    子モーダル\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"modal-footer\">\r\n                <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">閉じる</button>\r\n            </div>\r\n\r\n        </div>\r\n    </div>\r\n</div>";
+module.exports = "<div class=\"modal fade\" data-bind=\"attr: { id: componentId }\" role=\"dialog\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog\">\r\n        <div class=\"modal-content\">\r\n\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n                    <span aria-hidden=\"true\">&times;</span>\r\n                </button>\r\n                <h4 class=\"modal-title\" data-bind=\"text: title\"></h4>\r\n            </div>\r\n\r\n            <div class=\"modal-body\">\r\n                <div>\r\n                    子モーダル\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"modal-footer\">\r\n                <button class=\"btn btn-primary\" data-bind=\"event: { click: onClickShowModalBtn }\">サブ子モーダル表示</button>\r\n\r\n                <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">閉じる</button>\r\n            </div>\r\n\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<sub-child-modal params=\"parent: $data\"></sub-child-modal>";
 
 /***/ }),
 /* 22 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"modal fade\" data-bind=\"attr: { id: componentId }\" role=\"dialog\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog\">\r\n        <div class=\"modal-content\">\r\n\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n                    <span aria-hidden=\"true\">&times;</span>\r\n                </button>\r\n                <h4 class=\"modal-title\" data-bind=\"text: title\"></h4>\r\n            </div>\r\n\r\n            <div class=\"modal-body\">\r\n                <div>\r\n                    親モーダル\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"modal-footer\">\r\n                <button class=\"btn btn-primary\" data-bind=\"event: { click: onClickShowModalBtn }\">子モーダル表示</button>\r\n\r\n                <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">閉じる</button>\r\n            </div>\r\n\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<!-- <child-modal params=\"parent: $data\"></child-modal> -->";
+module.exports = "<div class=\"modal fade\" data-bind=\"attr: { id: componentId }\" role=\"dialog\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog\">\r\n        <div class=\"modal-content\">\r\n\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n                    <span aria-hidden=\"true\">&times;</span>\r\n                </button>\r\n                <h4 class=\"modal-title\" data-bind=\"text: title\"></h4>\r\n            </div>\r\n\r\n            <div class=\"modal-body\">\r\n                <div>\r\n                    親モーダル\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"modal-footer\">\r\n                <button class=\"btn btn-primary\" data-bind=\"event: { click: onClickShowModalBtn }\">子モーダル表示</button>\r\n\r\n                <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">閉じる</button>\r\n            </div>\r\n\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<child-modal params=\"parent: $data\"></child-modal>";
 
 /***/ }),
 /* 23 */

@@ -16,9 +16,13 @@
             </div>
 
             <div class="modal-footer">
+                <button class="btn btn-primary" data-bind="event: { click: onClickShowModalBtn }">サブ子モーダル表示</button>
+
                 <button type="button" class="btn btn-primary" data-dismiss="modal">閉じる</button>
             </div>
 
         </div>
     </div>
 </div>
+
+<sub-child-modal params="parent: $data"></sub-child-modal>

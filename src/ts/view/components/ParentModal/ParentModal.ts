@@ -18,6 +18,10 @@ export default class ParentModal extends ModalBase {
     onClickShowModalBtn(self: this, event: JQuery.Event): void {
         console.log("self=%o, event=%o", self, event);
 
+        console.log("childModel=%o", ko.components.get(ChildModal.COMPONENT_NAME, (definition) => {
+            console.log("definition=%o", definition);
+        }))
+
         this.childModal.show();
     }
 
@@ -35,7 +39,7 @@ ko.components.register(COMPONENT_NAME, {
                 vm = new ParentModal();
                 vm.onCreateViewModel(params);
 
-                vm.childModal = new ChildModal();
+                // vm.childModal = new ChildModal();
                 ko.track(vm);
             }
             return vm;

@@ -52,6 +52,7 @@ export default class Application {
             row.active = true;
             row.country = `country${i + 1}`;
             row.date = new Date();
+            row.amount = (i + 1) * 1000;
             return row;
         });
         console.log("rowItems=%o", rowItems);

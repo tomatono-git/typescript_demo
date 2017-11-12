@@ -9,8 +9,10 @@ export class FlexGridComponent implements IComponent {
     /** コンポーネント名 */
     component: string;
 
-    /** */
+    /** グリッド */
     protected _flexGrid: FlexGrid;
+
+    /** グリッド */
     get flexGrid(): FlexGrid {
         return this._flexGrid;
     }
@@ -24,6 +26,12 @@ export class FlexGridComponent implements IComponent {
         // ko.track(this);
     }
 
+    /**
+     * グリッドのコンポーネントが初期化された時の処理
+     * @param self グリッドのコンポーネント
+     * @param rawFlexGrid グリッド本体
+     * @param args 引数
+     */
     protected onInitialized(self: this, rawFlexGrid: wijmo.grid.FlexGrid, args: any): void {
         console.log("self=%o, rawFlexGrid=%o, args=%o", self, rawFlexGrid, args);
 
@@ -36,16 +44,17 @@ export class FlexGridComponent implements IComponent {
             columns: [
                 { binding: 'id', header: 'ID' },
                 { binding: 'country', header: 'country' },
-                { binding: 'Date', header: 'Date' },
+                { binding: 'date', header: 'date' },
                 { binding: 'amount', header: 'amount' },
                 { binding: 'active', header: 'active' },
             ],
             // columns: this.createColumns(),
         };
         console.log("options=%o", options);
+        // グリッドの初期化
         rawFlexGrid.initialize(options);
         rawFlexGrid.itemsSource = new wijmo.collections.CollectionView()
-
+        // グリッドのインスタンス生成
         let flexGrid = new FlexGrid(rawFlexGrid);
 
         return flexGrid;
@@ -63,6 +72,21 @@ export class FlexGridComponent implements IComponent {
     //     return columns;
     // }
 
+    /**
+     * グリッドのデータを設定
+     * @param data グリッドのデータ
+     */
+    public setDataSource<T>(data: T[]): void {
+        if (this._flexGrid) {
+            this._flexGrid.setDataSource(data);
+        } else {
+            console.log("this._flexGrid is " + this._flexGrid);
+        }
+    }
+
+    /**
+     * インスタンスが生成された時の処理
+     */
     onCreateViewModel() {
         console.log("FlexGridComponent#onCreateViewModel()");
     }
@@ -94,13 +118,6 @@ export class FlexGridComponent implements IComponent {
     // }
 
 
-    public setDataSource<T>(data: T[]): void {
-        if (this._flexGrid) {
-            this._flexGrid.setDataSource(data);
-        } else {
-            console.log("this._flexGrid is " + this._flexGrid);
-        }
-    }
 
 }
 

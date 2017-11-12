@@ -47,11 +47,11 @@ export class DemoService {
 }
 
 class A { value: string }
-class B { value: string }
-class C { value: string }
+// class B { value: string }
+// class C { value: string }
 
-class Entity {
-    a: A;
-    b: B;
-    c: C;
-}
+// class Entity {
+//     a: A;
+//     b: B;
+//     c: C;
+// }

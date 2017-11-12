@@ -1,9 +1,9 @@
 
 import IComponent from "../IComponent";
-import { FlexGrid, Column } from "../FlexGrid/FlexGrid";
+import { FlexGrid } from "../FlexGrid/FlexGrid";
 
 const COMPONENT_NAME = "ex-flex-grid";
-const COMPONENT_ID = COMPONENT_NAME;
+const COMPONENT_ID = COMPONENT_NAME + '-id';
 
 export default class FlexGridComponent implements IComponent {
     /** コンポーネント名 */
@@ -23,6 +23,7 @@ export default class FlexGridComponent implements IComponent {
      */
     constructor() {
         this.component = COMPONENT_NAME;
+        this.componentId = COMPONENT_ID;
         console.log(this.component);
         // ko.track(this);
     }

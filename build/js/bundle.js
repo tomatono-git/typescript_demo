@@ -68,20 +68,19 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-class IModalParams {
-}
-/* unused harmony export IModalParams */
-
-class ModalParams {
-    constructor(componentId, 
-        // public parentId?: string,
-        title) {
-        this.componentId = componentId;
-        this.title = title;
-    }
-}
-/* unused harmony export ModalParams */
-
+// export class IModalParams {
+//     componentId: string;
+//     parentId?: string;
+//     title?: string;
+// }
+// export class ModalParams implements IModalParams {
+//     constructor(
+//         public componentId: string,
+//         // public parentId?: string,
+//         public title?: string,
+//     ) {
+//     }
+// }
 class ModalComponent {
     constructor(name, parent) {
         this.name = name;
@@ -103,21 +102,10 @@ class ModalBase {
         let value = (this.component != null) ? this.component.name : undefined;
         return value;
     }
-    constructor(componentName, componentId) {
+    constructor(componentName, componentId, title) {
         this.component = new ModalComponent(componentName);
         this.componentId = componentId;
-        this.title = '';
-        // if (params.parentId != null) {
-        //     this.componentId = `${params.parentId}-${params.componentId}`;
-        // } else {
-        //     this.componentId = params.componentId;
-        // }
-        // if (params.title != null) {
-        //     this.title = params.title;
-        // } else {
-        //     this.title = '';
-        // }
-        // console.log("componentName=%o, params=%o, this=%o", componentName, params, this);
+        this.title = title ? title : '';
         console.log("componentName=%o, componentId=%o, this=%o", componentName, componentId, this);
     }
     show(params) {
@@ -134,18 +122,24 @@ class ModalBase {
         let componentId;
         let title;
         if (params != null) {
-            if (params.parent != null) {
+            if (params.parent != null && params.parent.componentId != null) {
                 componentId = `${params.parent.componentId}_${this.componentId}`;
             }
             if (params.title != null) {
                 title = params.title;
             }
         }
-        if (componentId == null) {
-            componentId = `${this.componentName}-id`;
+        if (componentId != null) {
+            this.componentId = componentId;
         }
-        if (title == null) {
-            title = '';
+        else {
+            this.componentId = `${this.componentName}-id`;
+        }
+        if (title != null) {
+            this.title = title;
+        }
+        else if (this.title == null) {
+            this.title = '';
         }
     }
 }
@@ -715,7 +709,7 @@ ko.components.register(COMPONENT_NAME, {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__FlexGrid_FlexGrid__ = __webpack_require__(6);
 
 const COMPONENT_NAME = "ex-flex-grid";
-const COMPONENT_ID = COMPONENT_NAME;
+const COMPONENT_ID = COMPONENT_NAME + '-id';
 class FlexGridComponent {
     /** グリッド */
     get flexGrid() {
@@ -726,6 +720,7 @@ class FlexGridComponent {
      */
     constructor() {
         this.component = COMPONENT_NAME;
+        this.componentId = COMPONENT_ID;
         console.log(this.component);
         // ko.track(this);
     }
@@ -1354,7 +1349,7 @@ const COMPONENT_ID = COMPONENT_NAME + '-id';
 const TITLE = "親モーダル";
 class ParentModal extends __WEBPACK_IMPORTED_MODULE_0__IModal__["a" /* ModalBase */] {
     constructor() {
-        super(COMPONENT_NAME, COMPONENT_ID);
+        super(COMPONENT_NAME, COMPONENT_ID, TITLE);
     }
     onClickShowModalBtn(self, event) {
         console.log("self=%o, event=%o", self, event);
@@ -1373,9 +1368,8 @@ ko.components.register(COMPONENT_NAME, {
                 vm = params;
             }
             else {
-                let options = params ? params.options : undefined;
                 vm = new ParentModal();
-                vm.onCreateViewModel(options);
+                vm.onCreateViewModel(params);
                 vm.childModal = new __WEBPACK_IMPORTED_MODULE_1__ChildModal_ChildModal__["a" /* default */]();
                 ko.track(vm);
             }
@@ -1399,36 +1393,8 @@ const COMPONENT_ID = COMPONENT_NAME + '-id';
 const TITLE = "子モーダル";
 class ChildModal extends __WEBPACK_IMPORTED_MODULE_0__IModal__["a" /* ModalBase */] {
     constructor() {
-        super(COMPONENT_NAME, COMPONENT_ID);
+        super(COMPONENT_NAME, COMPONENT_ID, TITLE);
     }
-    // constructor(parentId: string, title?: string) {
-    //     super(COMPONENT_NAME, new ModalParams(COMPONENT_ID, parentId, (title != null) ? title : TITLE));
-    //     // this.component = COMPONENT_NAME;
-    //     // if (params != null) {
-    //     //     if (params.parentId != null) {
-    //     //         this.componentId = `${params.parentId}-${COMPONENT_ID}`;
-    //     //     } else {
-    //     //         this.componentId = COMPONENT_ID;
-    //     //     }
-    //     //     if (params.title != null) {
-    //     //         this.title = params.title;
-    //     //     } else {
-    //     //         this.title = TITLE;
-    //     //     }
-    //     // }
-    //     // let subChildModalParams = new ModalParams('sub', 'サブ子モーダル');
-    //     this.subChildModal = new SubChildModal(this.componentId);
-    //     ko.track(this);
-    // }
-    // show<T>(params?: T): void {
-    //     let options: ModalOptions = {
-    //         backdrop: "static",
-    //         show: true,
-    //         keyboard: true,
-    //     };
-    //     console.log("params=%o, options=%o", params, options);
-    //     $(`#${this.componentId}`).modal(options);
-    // }
     onClickShowModalBtn(self, event) {
         console.log("self=%o, event=%o", self, event);
         this.subChildModal.show();
@@ -1446,16 +1412,8 @@ ko.components.register(COMPONENT_NAME, {
                 vm = params;
             }
             else {
-                let options = params ? params.options : undefined;
                 vm = new ChildModal();
-                vm.onCreateViewModel(options);
-                // if (params == null) {
-                //     vm = new ChildModal();
-                //     vm.onCreateViewModel();
-                // } else {
-                //     vm = new ChildModal(params.options);
-                //     // vm = params.options;
-                // }
+                vm.onCreateViewModel(params);
                 vm.subChildModal = new __WEBPACK_IMPORTED_MODULE_1__SubChildModal_SubChildModal__["a" /* default */]();
                 ko.track(vm);
             }
@@ -1477,8 +1435,7 @@ const COMPONENT_ID = COMPONENT_NAME + '-id';
 const TITLE = "サブ子モーダル";
 class SubChildModal extends __WEBPACK_IMPORTED_MODULE_0__IModal__["a" /* ModalBase */] {
     constructor() {
-        super(COMPONENT_NAME, COMPONENT_ID);
-        // ko.track(this);
+        super(COMPONENT_NAME, COMPONENT_ID, TITLE);
     }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = SubChildModal;
@@ -1493,17 +1450,8 @@ ko.components.register(COMPONENT_NAME, {
                 vm = params;
             }
             else {
-                let options = params ? params.options : undefined;
-                // vm = new SubChildModal(options);
                 vm = new SubChildModal();
-                vm.onCreateViewModel(options);
-                // if (params == null) {
-                //     vm = new SubChildModal();
-                //     vm.onCreateViewModel();
-                // } else {
-                //     vm = new SubChildModal(params.options);
-                //     // vm = params.options;
-                // }
+                vm.onCreateViewModel(params);
                 ko.track(vm);
             }
             return vm;

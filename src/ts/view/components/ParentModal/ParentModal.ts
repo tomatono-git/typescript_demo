@@ -1,5 +1,5 @@
 
-import { ModalBase, ModalParams, ModalComponent } from "../IModal";
+import { ModalBase } from "../IModal";
 import ChildModal from "../ChildModal/ChildModal";
 
 
@@ -12,7 +12,7 @@ export default class ParentModal extends ModalBase {
     childModal: ChildModal;
 
     constructor() {
-        super(COMPONENT_NAME, COMPONENT_ID);
+        super(COMPONENT_NAME, COMPONENT_ID, TITLE);
     }
 
     onClickShowModalBtn(self: this, event: JQuery.Event): void {
@@ -32,9 +32,8 @@ ko.components.register(COMPONENT_NAME, {
             if (params instanceof ParentModal) {
                 vm = params;
             } else {
-                let options = params ? params.options : undefined;
                 vm = new ParentModal();
-                vm.onCreateViewModel(options);
+                vm.onCreateViewModel(params);
 
                 vm.childModal = new ChildModal();
                 ko.track(vm);

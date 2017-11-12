@@ -35,7 +35,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "cleanbuild": "npm run clean & npm run build",
     "clean": "rimraf ./build/js",
-    "build": "webpack --display-error-details"
+    "build": "webpack --progress --color --display-error-details"
   },
   "author": "",
   "license": "ISC"

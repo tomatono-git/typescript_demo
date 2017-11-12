@@ -559,8 +559,13 @@ class Application {
         // let rowItems: DemoRow = [];
         let rowItems = Array.from(Array(100).keys()).map((i) => {
             let row = new __WEBPACK_IMPORTED_MODULE_5__eitities_DemoData__["a" /* DemoRow */]();
+            row.id = i + 1;
+            row.active = true;
+            row.country = `country${i + 1}`;
+            row.date = new Date();
             return row;
         });
+        console.log("rowItems=%o", rowItems);
         this.flexGridComponent.setDataSource(rowItems);
     }
 }
@@ -674,6 +679,9 @@ class FlexGridComponent {
     setDataSource(data) {
         if (this._flexGrid) {
             this._flexGrid.setDataSource(data);
+        }
+        else {
+            console.log("this._flexGrid is " + this._flexGrid);
         }
     }
 }
@@ -1326,7 +1334,7 @@ exports.push([module.i, "html, body {\r\n    height: 100%;\r\n}\r\n\r\nbody {\r\
 /* 20 */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n\r\n    <div id=\"subtree\" class=\"split split-horizontal\">\r\n        subtree\r\n    </div>\r\n    <div id=\"main-contents\" class=\"split split-horizontal\">\r\n        <div>\r\n            <div>\r\n                <button data-bind=\"click: onClickLoadGridDataButton\">データ読み込み</button>\r\n            </div>\r\n            <!-- <ex-flex-grid></ex-flex-grid> -->\r\n            <div data-bind=\"component: 'ex-flex-grid'\"></div>\r\n        </div>\r\n        <div>\r\n            <div data-bind=\"component: 'top-component'\"></div>\r\n        </div>\r\n\r\n        <div>\r\n            <div data-bind=\"component: 'center-component'\"></div>\r\n        </div>\r\n\r\n        <div>\r\n            <div data-bind=\"component: 'bottom-component'\"></div>\r\n        </div>\r\n\r\n        <!-- <div>\r\n            <label>text1:<input data-bind=\"value: text1\"></label>\r\n        </div>\r\n        <div>\r\n            <label>text2:<input data-bind=\"textInput: text2\"></label>\r\n        </div>\r\n        <div>\r\n            <label>textArea1:<input data-bind=\"textInput: textArea1\"></label>\r\n        </div>\r\n        <div>\r\n            <label>radio1=1:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio1\"></label>\r\n            <label>radio1=2:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio2\"></label>\r\n            <label>radio1=3:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio3\"></label>\r\n        </div>\r\n\r\n        <div>\r\n            <label>checkBox=1:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox1\"></label>\r\n            <label>checkBox=2:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox2\"></label>\r\n            <label>checkBox=3:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox3\"></label>\r\n        </div>\r\n\r\n        <button data-bind=\"event: { click: onClickDisplayBtn }\">表示</button> -->\r\n    </div>\r\n</div>";
+module.exports = "<div>\r\n\r\n    <div id=\"subtree\" class=\"split split-horizontal\">\r\n        subtree\r\n    </div>\r\n    <div id=\"main-contents\" class=\"split split-horizontal\">\r\n        <div>\r\n            <div>\r\n                <button data-bind=\"click: onClickLoadGridDataButton\">データ読み込み</button>\r\n            </div>\r\n            <!-- <ex-flex-grid></ex-flex-grid> -->\r\n            <!-- <div data-bind=\"component: 'ex-flex-grid'\"></div> -->\r\n            <div data-bind=\"component: { name: 'ex-flex-grid', params: flexGridComponent }\"></div>\r\n        </div>\r\n        <div>\r\n            <div data-bind=\"component: 'top-component'\"></div>\r\n        </div>\r\n\r\n        <div>\r\n            <div data-bind=\"component: 'center-component'\"></div>\r\n        </div>\r\n\r\n        <div>\r\n            <div data-bind=\"component: 'bottom-component'\"></div>\r\n        </div>\r\n\r\n        <!-- <div>\r\n            <label>text1:<input data-bind=\"value: text1\"></label>\r\n        </div>\r\n        <div>\r\n            <label>text2:<input data-bind=\"textInput: text2\"></label>\r\n        </div>\r\n        <div>\r\n            <label>textArea1:<input data-bind=\"textInput: textArea1\"></label>\r\n        </div>\r\n        <div>\r\n            <label>radio1=1:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio1\"></label>\r\n            <label>radio1=2:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio2\"></label>\r\n            <label>radio1=3:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio3\"></label>\r\n        </div>\r\n\r\n        <div>\r\n            <label>checkBox=1:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox1\"></label>\r\n            <label>checkBox=2:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox2\"></label>\r\n            <label>checkBox=3:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox3\"></label>\r\n        </div>\r\n\r\n        <button data-bind=\"event: { click: onClickDisplayBtn }\">表示</button> -->\r\n    </div>\r\n</div>";
 
 /***/ })
 /******/ ]);

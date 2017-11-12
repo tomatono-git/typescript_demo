@@ -48,8 +48,13 @@ export default class Application {
         // let rowItems: DemoRow = [];
         let rowItems = Array.from(Array(100).keys()).map((i) => {
             let row = new DemoRow();
+            row.id = i + 1;
+            row.active = true;
+            row.country = `country${i + 1}`;
+            row.date = new Date();
             return row;
         });
+        console.log("rowItems=%o", rowItems);
         this.flexGridComponent.setDataSource(rowItems);
     }
 

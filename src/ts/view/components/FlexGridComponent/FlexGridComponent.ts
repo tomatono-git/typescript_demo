@@ -97,6 +97,8 @@ export class FlexGridComponent implements IComponent {
     public setDataSource<T>(data: T[]): void {
         if (this._flexGrid) {
             this._flexGrid.setDataSource(data);
+        } else {
+            console.log("this._flexGrid is " + this._flexGrid);
         }
     }
 

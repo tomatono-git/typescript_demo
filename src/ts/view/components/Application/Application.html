@@ -9,7 +9,8 @@
                 <button data-bind="click: onClickLoadGridDataButton">データ読み込み</button>
             </div>
             <!-- <ex-flex-grid></ex-flex-grid> -->
-            <div data-bind="component: 'ex-flex-grid'"></div>
+            <!-- <div data-bind="component: 'ex-flex-grid'"></div> -->
+            <div data-bind="component: { name: 'ex-flex-grid', params: flexGridComponent }"></div>
         </div>
         <div>
             <div data-bind="component: 'top-component'"></div>

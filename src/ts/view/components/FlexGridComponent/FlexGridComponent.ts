@@ -1,13 +1,14 @@
 
-import { IComponent } from "../IComponent";
+import IComponent from "../IComponent";
 import { FlexGrid, Column } from "../FlexGrid/FlexGrid";
 
 const COMPONENT_NAME = "ex-flex-grid";
 const COMPONENT_ID = COMPONENT_NAME;
 
-export class FlexGridComponent implements IComponent {
+export default class FlexGridComponent implements IComponent {
     /** コンポーネント名 */
     component: string;
+    componentId: string;
 
     /** グリッド */
     protected _flexGrid: FlexGrid;
@@ -87,8 +88,8 @@ export class FlexGridComponent implements IComponent {
     /**
      * インスタンスが生成された時の処理
      */
-    onCreateViewModel() {
-        console.log("FlexGridComponent#onCreateViewModel()");
+    onCreateViewModel(params: any) {
+        console.log("FlexGridComponent#onCreateViewModel(): params=%o", params);
     }
 
     // static register(template: string, css?: string): void {
@@ -126,16 +127,20 @@ ko.components.register(COMPONENT_NAME, {
     template: require("./FlexGridComponent.html"),
     viewModel: {
         createViewModel(params?, componentInfo?): any {
+            console.log("params=%o", params);
             let vm: FlexGridComponent;
             if (params instanceof FlexGridComponent) {
                 vm = params;
             } else {
-                if (params != null && params.options != null) {
-                    vm = params.options;
-                } else {
-                    vm = new FlexGridComponent();
-                    vm.onCreateViewModel();
-                }
+                let options = params ? params.options : undefined;
+                vm = new FlexGridComponent();
+                vm.onCreateViewModel(options);
+                // if (params != null && params.options != null) {
+                //     vm = params.options;
+                // } else {
+                //     vm = new FlexGridComponent();
+                //     vm.onCreateViewModel();
+                // }
             }
             return vm;
         }

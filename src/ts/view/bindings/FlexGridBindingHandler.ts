@@ -1,5 +1,5 @@
 
-import { FlexGridComponent } from "../components/FlexGridComponent/FlexGridComponent";
+import FlexGridComponent from "../components/FlexGridComponent/FlexGridComponent";
 
 export class FlexGridBindingHandler implements KnockoutBindingHandler {
 

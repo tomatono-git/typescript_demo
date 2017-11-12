@@ -1,9 +1,11 @@
+
 /** コンポーネント名 */
 const COMPONENT_NAME: string = "center-component";
 
 export default class CenterComponent {
 
     component: string;
+    componentId: string;
 
     text1: string;
     text2: string;
@@ -23,8 +25,8 @@ export default class CenterComponent {
 
     }
 
-    onCreateViewModel() {
-        console.log("CenterComponent#onCreateViewModel()");
+    onCreateViewModel(params: any) {
+        console.log("CenterComponent#onCreateViewModel(): params=%o", params);
     }
 
     onClickDisplayBtn(target: this, event: any) {
@@ -53,16 +55,21 @@ ko.components.register(COMPONENT_NAME, {
     template: require("./CenterComponent.html"),
     viewModel: {
         createViewModel(params?, componentInfo?): any {
+            console.log("params=%o", params);
             let vm: CenterComponent;
             if (params instanceof CenterComponent) {
                 vm = params;
             } else {
-                if (params == null) {
-                    vm = new CenterComponent();
-                    vm.onCreateViewModel();
-                } else {
-                    vm = params.options;
-                }
+                vm = new CenterComponent();
+                let options = params ? params.options : undefined;
+                vm.onCreateViewModel(options);
+                // vm.onCreateViewModel(params.options);
+                // if (params == null) {
+                //     vm = new CenterComponent();
+                //     vm.onCreateViewModel();
+                // } else {
+                //     vm = params.options;
+                // }
             }
             return vm;
         }

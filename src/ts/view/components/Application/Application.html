@@ -4,6 +4,11 @@
         subtree
     </div>
     <div id="main-contents" class="split split-horizontal">
+
+        <div>
+            <button class="btn btn-primary" data-bind="event: { click: onClickShowModalBtn }">モーダル表示</button>
+        </div>
+
         <div>
             <div>
                 <button data-bind="click: onClickLoadGridDataButton">データ読み込み</button>
@@ -24,27 +29,9 @@
             <div data-bind="component: 'bottom-component'"></div>
         </div>
 
-        <!-- <div>
-            <label>text1:<input data-bind="value: text1"></label>
-        </div>
         <div>
-            <label>text2:<input data-bind="textInput: text2"></label>
+            <parent-modal params="parent: $data"></parent-modal>
+            <!-- <child-modal></child-modal> -->
         </div>
-        <div>
-            <label>textArea1:<input data-bind="textInput: textArea1"></label>
-        </div>
-        <div>
-            <label>radio1=1:<input type="radio" name="radioGroup" data-bind="checked: radio1" value="radio1"></label>
-            <label>radio1=2:<input type="radio" name="radioGroup" data-bind="checked: radio1" value="radio2"></label>
-            <label>radio1=3:<input type="radio" name="radioGroup" data-bind="checked: radio1" value="radio3"></label>
-        </div>
-
-        <div>
-            <label>checkBox=1:<input type="checkbox" data-bind="checked: checkBoxCheckes" value="checkbox1"></label>
-            <label>checkBox=2:<input type="checkbox" data-bind="checked: checkBoxCheckes" value="checkbox2"></label>
-            <label>checkBox=3:<input type="checkbox" data-bind="checked: checkBoxCheckes" value="checkbox3"></label>
-        </div>
-
-        <button data-bind="event: { click: onClickDisplayBtn }">表示</button> -->
     </div>
 </div>

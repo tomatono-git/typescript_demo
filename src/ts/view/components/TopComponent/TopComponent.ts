@@ -1,9 +1,12 @@
+import IComponent from "../IComponent";
+
 /** コンポーネント名 */
 const COMPONENT_NAME: string = "top-component";
 
-export default class TopComponent {
+export default class TopComponent implements IComponent {
 
     component: string;
+    componentId: string;
 
     text1: string;
     text2: string;
@@ -23,8 +26,8 @@ export default class TopComponent {
 
     }
 
-    onCreateViewModel() {
-        console.log("TopComponent#onCreateViewModel()");
+    onCreateViewModel(params: any) {
+        console.log("TopComponent#onCreateViewModel(): params=%o", params);
     }
 
     onClickDisplayBtn(target: this, event: Event) {
@@ -179,16 +182,20 @@ ko.components.register(COMPONENT_NAME, {
     template: require("./TopComponent.html"),
     viewModel: {
         createViewModel(params?, componentInfo?): any {
+            console.log("params=%o", params);
             let vm: TopComponent;
             if (params instanceof TopComponent) {
                 vm = params;
             } else {
-                if (params == null) {
-                    vm = new TopComponent();
-                    vm.onCreateViewModel();
-                } else {
-                    vm = params.options;
-                }
+                let options = params ? params.options : undefined;
+                vm = new TopComponent();
+                vm.onCreateViewModel(options);
+                // if (params == null) {
+                //     vm = new TopComponent();
+                //     vm.onCreateViewModel();
+                // } else {
+                //     vm = params.options;
+                // }
             }
             return vm;
         }

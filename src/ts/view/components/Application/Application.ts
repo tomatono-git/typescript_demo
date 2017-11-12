@@ -1,19 +1,22 @@
-import { FlexGridComponent } from "../FlexGridComponent/FlexGridComponent";
+import IComponent from "../IComponent";
+import FlexGridComponent from "../FlexGridComponent/FlexGridComponent";
 import TopComponent from "../TopComponent/TopComponent";
 import CenterComponent from "../CenterComponent/CenterComponent";
 import BottomComponent from "../BottomComponent/BottomComponent";
+import ParentModal from "../ParentModal/ParentModal";
 
 /** コンポーネント名 */
 import { FlexGridBindingHandler } from "../../bindings/FlexGridBindingHandler";
-import { DemoRow } from "../../eitities/DemoData";
+import { DemoRow } from "../../entities/DemoData";
 
 const COMPONENT_NAME: string = "application";
 
 ko.bindingHandlers.exFlexGrid = new FlexGridBindingHandler();
 
-export default class Application {
+export default class Application implements IComponent {
 
     component: string;
+    componentId: string;
 
     flexGridComponent: FlexGridComponent;
 
@@ -21,25 +24,29 @@ export default class Application {
     centerComponent: CenterComponent;
     bottomComponent: BottomComponent;
 
+    parentModal: ParentModal;
+
     constructor() {
         this.component = COMPONENT_NAME;
 
+        // グリッド
         this.flexGridComponent = new FlexGridComponent();
+        // 上
         this.topComponent = new TopComponent();
+        // 中央
         this.centerComponent = new CenterComponent();
+        // 左
         this.bottomComponent = new BottomComponent();
+        // モーダル
+        this.parentModal = new ParentModal();
 
         ko.track(this);
     }
 
-    onCreateViewModel() {
-        console.log("Application#onCreateViewModel()");
+    onClickShowModalBtn(self: this, event: JQuery.Event): void {
+        console.log("self=%o, event=%o", self, event);
 
-        Split(['#subtree', '#main-contents'], {
-            sizes: [15, 85],
-            minSize: 100,
-            // direction: 'horizontal'
-        });
+        this.parentModal.show();
     }
 
     onClickLoadGridDataButton(self: this, event: JQuery.Event): void {
@@ -64,6 +71,17 @@ export default class Application {
     //     let message = `text1=${this.text1}, text2=${this.text2}, textArea1=${this.textArea1}, radio1=${this.radio1}, checkBoxCheckes=${this.checkBoxCheckes}`;
     //     alert(message);
     // }
+
+    onCreateViewModel(params: any) {
+        console.log("Application#onCreateViewModel(): params=%o", params);
+
+        Split(['#subtree', '#main-contents'], {
+            sizes: [15, 85],
+            minSize: 100,
+            // direction: 'horizontal'
+        });
+    }
+
 }
 
 require("./Application.css");
@@ -73,16 +91,20 @@ ko.components.register(COMPONENT_NAME, {
     template: require("./Application.html"),
     viewModel: {
         createViewModel(params?, componentInfo?): any {
+            console.log("params=%o", params);
             let vm: Application;
             if (params instanceof Application) {
                 vm = params;
             } else {
-                if (params == null) {
-                    vm = new Application();
-                    vm.onCreateViewModel();
-                } else {
-                    vm = params.options;
-                }
+                vm = new Application();
+                let options = params ? params.options : undefined;
+                vm.onCreateViewModel(options);
+                // if (params == null) {
+                //     vm = new Application();
+                //     vm.onCreateViewModel(params.options);
+                // } else {
+                //     vm = params.options;
+                // }
             }
             return vm;
         }

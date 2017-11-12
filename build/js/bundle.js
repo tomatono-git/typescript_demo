@@ -60,704 +60,101 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-function webpackEmptyContext(req) {
-	throw new Error("Cannot find module '" + req + "'.");
+"use strict";
+class IModalParams {
 }
-webpackEmptyContext.keys = function() { return []; };
-webpackEmptyContext.resolve = webpackEmptyContext;
-module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 0;
+/* unused harmony export IModalParams */
+
+class ModalParams {
+    constructor(componentId, 
+        // public parentId?: string,
+        title) {
+        this.componentId = componentId;
+        this.title = title;
+    }
+}
+/* unused harmony export ModalParams */
+
+class ModalComponent {
+    constructor(name, parent) {
+        this.name = name;
+        this.params = new ModalComponentParams(parent);
+    }
+}
+/* unused harmony export ModalComponent */
+
+class ModalComponentParams {
+    constructor(parent, title) {
+        this.parent = parent;
+        this.title = title;
+    }
+}
+/* unused harmony export ModalComponentParams */
+
+class ModalBase {
+    get componentName() {
+        let value = (this.component != null) ? this.component.name : undefined;
+        return value;
+    }
+    constructor(componentName, componentId) {
+        this.component = new ModalComponent(componentName);
+        this.componentId = componentId;
+        this.title = '';
+        // if (params.parentId != null) {
+        //     this.componentId = `${params.parentId}-${params.componentId}`;
+        // } else {
+        //     this.componentId = params.componentId;
+        // }
+        // if (params.title != null) {
+        //     this.title = params.title;
+        // } else {
+        //     this.title = '';
+        // }
+        // console.log("componentName=%o, params=%o, this=%o", componentName, params, this);
+        console.log("componentName=%o, componentId=%o, this=%o", componentName, componentId, this);
+    }
+    show(params) {
+        let options = {
+            backdrop: "static",
+            show: true,
+            keyboard: true,
+        };
+        console.log("params=%o, options=%o", params, options);
+        $(`#${this.componentId}`).modal(options);
+    }
+    onCreateViewModel(params) {
+        this.component.params = params;
+        let componentId;
+        let title;
+        if (params != null) {
+            if (params.parent != null) {
+                componentId = `${params.parent.componentId}_${this.componentId}`;
+            }
+            if (params.title != null) {
+                title = params.title;
+            }
+        }
+        if (componentId == null) {
+            componentId = `${this.componentName}-id`;
+        }
+        if (title == null) {
+            title = '';
+        }
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = ModalBase;
+
+
 
 /***/ }),
 /* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__view_components_Application_Application__ = __webpack_require__(2);
-
-$(() => {
-    let vm = new __WEBPACK_IMPORTED_MODULE_0__view_components_Application_Application__["a" /* default */]();
-    ko.applyBindings(vm, $("html")[0]);
-});
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__FlexGridComponent_FlexGridComponent__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TopComponent_TopComponent__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__CenterComponent_CenterComponent__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__BottomComponent_BottomComponent__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__bindings_FlexGridBindingHandler__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__eitities_DemoData__ = __webpack_require__(12);
-
-
-
-
-/** コンポーネント名 */
-
-
-const COMPONENT_NAME = "application";
-ko.bindingHandlers.exFlexGrid = new __WEBPACK_IMPORTED_MODULE_4__bindings_FlexGridBindingHandler__["a" /* FlexGridBindingHandler */]();
-class Application {
-    constructor() {
-        this.component = COMPONENT_NAME;
-        this.flexGridComponent = new __WEBPACK_IMPORTED_MODULE_0__FlexGridComponent_FlexGridComponent__["a" /* FlexGridComponent */]();
-        this.topComponent = new __WEBPACK_IMPORTED_MODULE_1__TopComponent_TopComponent__["a" /* default */]();
-        this.centerComponent = new __WEBPACK_IMPORTED_MODULE_2__CenterComponent_CenterComponent__["a" /* default */]();
-        this.bottomComponent = new __WEBPACK_IMPORTED_MODULE_3__BottomComponent_BottomComponent__["a" /* default */]();
-        ko.track(this);
-    }
-    onCreateViewModel() {
-        console.log("Application#onCreateViewModel()");
-        Split(['#subtree', '#main-contents'], {
-            sizes: [15, 85],
-            minSize: 100,
-        });
-    }
-    onClickLoadGridDataButton(self, event) {
-        console.log("self=%o, event=%o", self, event);
-        // let rowItems: DemoRow = [];
-        let rowItems = Array.from(Array(100).keys()).map((i) => {
-            let row = new __WEBPACK_IMPORTED_MODULE_5__eitities_DemoData__["a" /* DemoRow */]();
-            row.id = i + 1;
-            row.active = true;
-            row.country = `country${i + 1}`;
-            row.date = new Date();
-            row.amount = (i + 1) * 1000;
-            return row;
-        });
-        console.log("rowItems=%o", rowItems);
-        this.flexGridComponent.setDataSource(rowItems);
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = Application;
-
-__webpack_require__(13);
-// require("./images/split/horizontal.png");
-// require("./images/split/vertical.png");
-ko.components.register(COMPONENT_NAME, {
-    template: __webpack_require__(18),
-    viewModel: {
-        createViewModel(params, componentInfo) {
-            let vm;
-            if (params instanceof Application) {
-                vm = params;
-            }
-            else {
-                if (params == null) {
-                    vm = new Application();
-                    vm.onCreateViewModel();
-                }
-                else {
-                    vm = params.options;
-                }
-            }
-            return vm;
-        }
-    }
-});
-
-
-/***/ }),
-/* 3 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__FlexGrid_FlexGrid__ = __webpack_require__(4);
-
-const COMPONENT_NAME = "ex-flex-grid";
-const COMPONENT_ID = COMPONENT_NAME;
-class FlexGridComponent {
-    get flexGrid() {
-        return this._flexGrid;
-    }
-    /**
-     * コンストラクタ
-     */
-    constructor() {
-        this.component = COMPONENT_NAME;
-        console.log(this.component);
-        // ko.track(this);
-    }
-    onInitialized(self, rawFlexGrid, args) {
-        console.log("self=%o, rawFlexGrid=%o, args=%o", self, rawFlexGrid, args);
-        self._flexGrid = self.createFlexGrid(rawFlexGrid);
-    }
-    createFlexGrid(rawFlexGrid) {
-        let options = {
-            autoGenerateColumns: false,
-            columns: [
-                { binding: 'id', header: 'ID' },
-                { binding: 'country', header: 'country' },
-                { binding: 'date', header: 'date' },
-                { binding: 'amount', header: 'amount' },
-                { binding: 'active', header: 'active' },
-            ],
-        };
-        console.log("options=%o", options);
-        rawFlexGrid.initialize(options);
-        rawFlexGrid.itemsSource = new wijmo.collections.CollectionView();
-        let flexGrid = new __WEBPACK_IMPORTED_MODULE_0__FlexGrid_FlexGrid__["a" /* FlexGrid */](rawFlexGrid);
-        return flexGrid;
-    }
-    // protected createColumns(): Column[] {
-    //     var columns: Column[] = [
-    //         new Column({ binding: 'id', header: 'ID' }),
-    //         new Column({ binding: 'country', header: 'country' }),
-    //         new Column({ binding: 'Date', header: 'Date' }),
-    //         new Column({ binding: 'amount', header: 'amount' }),
-    //         new Column({ binding: 'active', header: 'active' }),
-    //     ];
-    //     return columns;
-    // }
-    onCreateViewModel() {
-        console.log("FlexGridComponent#onCreateViewModel()");
-    }
-    static register(template, css) {
-        if (css != null) {
-            !(function webpackMissingModule() { var e = new Error("Cannot find module \".\""); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-        }
-        ko.components.register(COMPONENT_NAME, {
-            template: !(function webpackMissingModule() { var e = new Error("Cannot find module \".\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()),
-            viewModel: {
-                createViewModel(params, componentInfo) {
-                    let vm;
-                    if (params instanceof FlexGridComponent) {
-                        vm = params;
-                    }
-                    else {
-                        if (params == null) {
-                            vm = new FlexGridComponent();
-                            vm.onCreateViewModel();
-                        }
-                        else {
-                            vm = params.options;
-                        }
-                    }
-                    return vm;
-                }
-            }
-        });
-    }
-    setDataSource(data) {
-        if (this._flexGrid) {
-            this._flexGrid.setDataSource(data);
-        }
-        else {
-            console.log("this._flexGrid is " + this._flexGrid);
-        }
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = FlexGridComponent;
-
-// require("./FlexGridComponent.css");
-// ko.components.register(COMPONENT_NAME, {
-//     template: require("./FlexGridComponent.html"),
-//     viewModel: {
-//         createViewModel(params?, componentInfo?): any {
-//             let vm: FlexGridComponent;
-//             if (params instanceof FlexGridComponent) {
-//                 vm = params;
-//             } else {
-//                 if (params != null && params.options != null) {
-//                     vm = params.options;
-//                 } else {
-//                     vm = new FlexGridComponent();
-//                     vm.onCreateViewModel();
-//                 }
-//             }
-//             return vm;
-//         }
-//     }
-// });
-FlexGridComponent.register("./FlexGridComponent.html", "FlexGridComponent.css");
-
-
-/***/ }),
-/* 4 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-class Column extends wijmo.grid.Column {
-    constructor(options) {
-        super(options);
-    }
-}
-/* unused harmony export Column */
-
-class Row extends wijmo.grid.Row {
-    constructor(dataItem) {
-        super(dataItem);
-    }
-}
-/* unused harmony export Row */
-
-class FlexGrid {
-    constructor(rawFlexGrid) {
-        this.raw = rawFlexGrid;
-    }
-    get itemsSource() {
-        return this.raw.itemsSource;
-    }
-    initialize(options) {
-        this.raw.initialize(options);
-        this.raw.itemsSource = new wijmo.collections.CollectionView();
-    }
-    setDataSource(data) {
-        let src = [];
-        if (data != null && data.length > 0) {
-            src.push(...data);
-        }
-        this.itemsSource.sourceCollection = src;
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = FlexGrid;
-
-
-
-/***/ }),
-/* 5 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/** コンポーネント名 */
-const COMPONENT_NAME = "top-component";
-class TopComponent {
-    constructor() {
-        this.component = COMPONENT_NAME;
-        this.text1 = "";
-        this.text2 = "";
-        this.textArea1 = "";
-        this.radio1 = "";
-        this.checkBoxCheckes = [];
-        ko.track(this);
-    }
-    onCreateViewModel() {
-        console.log("TopComponent#onCreateViewModel()");
-    }
-    onClickDisplayBtn(target, event) {
-        let message = this.createDisplayMesasge();
-        alert(message);
-    }
-    callService() {
-        try {
-            console.log('callService START');
-            let promise = new Promise(() => {
-                let dummy = new DummyData('value1');
-                console.log('callService:dummy=%o', dummy.toString());
-                return dummy;
-            });
-            return promise;
-        }
-        finally {
-            console.log('callService END');
-        }
-    }
-    createData() {
-        try {
-            console.log('createData START');
-            let promise = this.callService().then((data) => {
-                console.log('createData:data=%o', data.toString());
-                let tuple = [data, 'createData'];
-                return tuple;
-            });
-            return promise;
-        }
-        finally {
-            console.log('createData END');
-        }
-    }
-    onClickPromiseTestBtn(target, event) {
-        console.debug('onClickPromiseTestBtn START');
-        // alert('onClickPromiseTestBtn START');
-        let promise = this.createData().then((data) => {
-            // func(dumy)
-            let [dummy, str] = data;
-            console.log('1:dummy=%o, str=%o', dummy.toString(), str);
-            dummy.key2 = 'value22';
-            console.log('2-1:dummy=%o, str=%o', dummy.toString(), str);
-            return dummy;
-        });
-        promise.then((data) => {
-            console.log('2-2:data=%o', data.toString());
-            data.key3 = 'value333';
-            console.log('3-1:data=%o', data.toString());
-            return data;
-        }).then((data) => {
-            console.debug('then-3-2:data=%o', data.toString());
-            data.key4 = 'value4444';
-            console.debug('throw-4 data=%o', data.toString());
-            throw data;
-        }).then((data) => {
-            console.debug('then:data=%o', data);
-        }).catch((data) => {
-            console.error('catch:data=%o', data.toString());
-        });
-        console.debug('onClickPromiseTestBtn END');
-    }
-    onClickTupleTestBtn(target, event) {
-        let promise = new Promise((resolve) => {
-            let list = [...Array(5).keys()].map((i) => {
-                return new DummyData(`val_${i}`, '', '', '', i);
-            });
-            console.log('list=%o', list);
-            resolve(list);
-        }).then((list) => {
-            console.log('then');
-            let promiseList = list.map((dummy) => {
-                return new Promise((resolve) => {
-                    let data = [dummy, dummy.key1 + '_str1'];
-                    console.log('list.map - new Promise: data=%o', data);
-                    resolve(data);
-                }).then(([dumy, str]) => {
-                    console.log('list.map - then: dumy=%o, str=%o', dumy, str);
-                    let num = (dummy.num != undefined) ? dummy.num : -1;
-                    let data = [dummy, str, num];
-                    return data;
-                });
-            });
-            console.log('promiseList=%o', promiseList);
-            let allList = Promise.all(promiseList);
-            console.log('allList=%o', allList);
-            return allList;
-        });
-        promise.then((list) => {
-            console.debug('promise.then: list', list);
-            return list.map(data => {
-                let [dummy, str, num] = data;
-                let newData = [dummy, str, num, dummy.key1 + '_str2'];
-                console.log('Promise.all: newData', newData);
-                return newData;
-            });
-        }).then((list) => {
-            list.forEach((data) => {
-                console.debug('promise.then - last: data', data);
-            });
-            throw list;
-        }).catch((list) => {
-            console.error(list);
-        });
-        // promise.then((data) => {
-        //     console.debug('promise.then: data', data);
-        // });
-    }
-    createDisplayMesasge() {
-        let buff = [];
-        buff.push(`text1=${this.text1}`);
-        buff.push(`text2=${this.text2}`);
-        buff.push(`textArea1=${this.textArea1}`);
-        buff.push(`radio1=${this.radio1}`);
-        buff.push(`checkBoxCheckes=${this.checkBoxCheckes}`);
-        let message = buff.join(", ");
-        return message;
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = TopComponent;
-
-class DummyData {
-    // key1: string
-    // key2: string
-    // key3: string
-    constructor(key1, key2, key3, key4, num) {
-        this.key1 = key1;
-        this.key2 = key2;
-        this.key3 = key3;
-        this.key4 = key4;
-        this.num = num;
-    }
-    toString() {
-        return `key1=${this.key1},key2=${this.key2},key3=${this.key3},key4=${this.key4},num=${this.num}`;
-    }
-}
-// require("./Application.css");
-// require("./images/split/horizontal.png");
-// require("./images/split/vertical.png");
-ko.components.register(COMPONENT_NAME, {
-    template: __webpack_require__(6),
-    viewModel: {
-        createViewModel(params, componentInfo) {
-            let vm;
-            if (params instanceof TopComponent) {
-                vm = params;
-            }
-            else {
-                if (params == null) {
-                    vm = new TopComponent();
-                    vm.onCreateViewModel();
-                }
-                else {
-                    vm = params.options;
-                }
-            }
-            return vm;
-        }
-    }
-});
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-module.exports = "<div>\r\n    <div>\r\n        <button data-bind=\"event: { click: onClickPromiseTestBtn }\">Promise Test</button>\r\n    </div>\r\n    <div>\r\n        <button data-bind=\"event: { click: onClickTupleTestBtn }\">Tuple Test</button>\r\n    </div>\r\n    <div>\r\n        <label>text1:\r\n            <input data-bind=\"value: text1\">\r\n        </label>\r\n    </div>\r\n    <div>\r\n        <label>text2:\r\n            <input data-bind=\"textInput: text2\">\r\n        </label>\r\n    </div>\r\n    <div>\r\n        <label>textArea1:\r\n            <textarea data-bind=\"textInput: textArea1\"></textarea>\r\n        </label>\r\n    </div>\r\n    <div>\r\n        <label>radio1=1:\r\n            <input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio1\">\r\n        </label>\r\n        <label>radio1=2:\r\n            <input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio2\">\r\n        </label>\r\n        <label>radio1=3:\r\n            <input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio3\">\r\n        </label>\r\n    </div>\r\n\r\n    <div>\r\n        <label>checkBox=1:\r\n            <input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox1\">\r\n        </label>\r\n        <label>checkBox=2:\r\n            <input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox2\">\r\n        </label>\r\n        <label>checkBox=3:\r\n            <input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox3\">\r\n        </label>\r\n    </div>\r\n\r\n    <button data-bind=\"event: { click: onClickDisplayBtn }\">表示</button>\r\n</div>";
-
-/***/ }),
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/** コンポーネント名 */
-const COMPONENT_NAME = "center-component";
-class CenterComponent {
-    constructor() {
-        this.component = COMPONENT_NAME;
-        this.text1 = "";
-        this.text2 = "";
-        this.textArea1 = "";
-        this.radio1 = "";
-        this.checkBoxCheckes = [];
-        ko.track(this);
-    }
-    onCreateViewModel() {
-        console.log("CenterComponent#onCreateViewModel()");
-    }
-    onClickDisplayBtn(target, event) {
-        let message = this.createDisplayMesasge();
-        alert(message);
-    }
-    createDisplayMesasge() {
-        let buff = [];
-        buff.push(`text1=${this.text1}`);
-        buff.push(`text2=${this.text2}`);
-        buff.push(`textArea1=${this.textArea1}`);
-        buff.push(`radio1=${this.radio1}`);
-        buff.push(`checkBoxCheckes=${this.checkBoxCheckes}`);
-        let message = buff.join(", ");
-        return message;
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = CenterComponent;
-
-// require("./Application.css");
-// require("./images/split/horizontal.png");
-// require("./images/split/vertical.png");
-ko.components.register(COMPONENT_NAME, {
-    template: __webpack_require__(8),
-    viewModel: {
-        createViewModel(params, componentInfo) {
-            let vm;
-            if (params instanceof CenterComponent) {
-                vm = params;
-            }
-            else {
-                if (params == null) {
-                    vm = new CenterComponent();
-                    vm.onCreateViewModel();
-                }
-                else {
-                    vm = params.options;
-                }
-            }
-            return vm;
-        }
-    }
-});
-
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports) {
-
-module.exports = "<div>\r\n    <div>\r\n        <label>text1:<input data-bind=\"value: text1\"></label>\r\n    </div>\r\n    <div>\r\n        <label>text2:<input data-bind=\"textInput: text2\"></label>\r\n    </div>\r\n    <div>\r\n        <label>textArea1:<textarea data-bind=\"textInput: textArea1\"></textarea></label>\r\n    </div>\r\n    <div>\r\n        <label>radio1=1:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio1\"></label>\r\n        <label>radio1=2:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio2\"></label>\r\n        <label>radio1=3:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio3\"></label>\r\n    </div>\r\n\r\n    <div>\r\n        <label>checkBox=1:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox1\"></label>\r\n        <label>checkBox=2:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox2\"></label>\r\n        <label>checkBox=3:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox3\"></label>\r\n    </div>\r\n\r\n    <button data-bind=\"event: { click: onClickDisplayBtn }\">表示</button>\r\n</div>";
-
-/***/ }),
-/* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/** コンポーネント名 */
-const COMPONENT_NAME = "bottom-component";
-class BottomComponent {
-    constructor() {
-        this.component = COMPONENT_NAME;
-        this.text1 = "";
-        this.text2 = "";
-        this.textArea1 = "";
-        this.radio1 = "";
-        this.checkBoxCheckes = [];
-        ko.track(this);
-    }
-    onCreateViewModel() {
-        console.log("BottomComponent#onCreateViewModel()");
-    }
-    onClickDisplayBtn(target, event) {
-        let message = this.createDisplayMesasge();
-        alert(message);
-    }
-    createDisplayMesasge() {
-        let buff = [];
-        buff.push(`text1=${this.text1}`);
-        buff.push(`text2=${this.text2}`);
-        buff.push(`textArea1=${this.textArea1}`);
-        buff.push(`radio1=${this.radio1}`);
-        buff.push(`checkBoxCheckes=${this.checkBoxCheckes}`);
-        let message = buff.join(", ");
-        return message;
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = BottomComponent;
-
-// require("./Application.css");
-// require("./images/split/horizontal.png");
-// require("./images/split/vertical.png");
-ko.components.register(COMPONENT_NAME, {
-    template: __webpack_require__(10),
-    viewModel: {
-        createViewModel(params, componentInfo) {
-            let vm;
-            if (params instanceof BottomComponent) {
-                vm = params;
-            }
-            else {
-                if (params == null) {
-                    vm = new BottomComponent();
-                    vm.onCreateViewModel();
-                }
-                else {
-                    vm = params.options;
-                }
-            }
-            return vm;
-        }
-    }
-});
-
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports) {
-
-module.exports = "<div>\r\n    <div>\r\n        <label>text1:<input data-bind=\"value: text1\"></label>\r\n    </div>\r\n    <div>\r\n        <label>text2:<input data-bind=\"textInput: text2\"></label>\r\n    </div>\r\n    <div>\r\n        <label>textArea1:<textarea data-bind=\"textInput: textArea1\"></textarea></label>\r\n    </div>\r\n    <div>\r\n        <label>radio1=1:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio1\"></label>\r\n        <label>radio1=2:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio2\"></label>\r\n        <label>radio1=3:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio3\"></label>\r\n    </div>\r\n\r\n    <div>\r\n        <label>checkBox=1:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox1\"></label>\r\n        <label>checkBox=2:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox2\"></label>\r\n        <label>checkBox=3:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox3\"></label>\r\n    </div>\r\n\r\n    <button data-bind=\"event: { click: onClickDisplayBtn }\">表示</button>\r\n</div>";
-
-/***/ }),
-/* 11 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-class FlexGridBindingHandler {
-    init(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-        //
-        console.log("element=%o, allBindingsAccessor=%o, viewModel=%o, bindingContext=%o", element, allBindingsAccessor, viewModel, bindingContext);
-    }
-    update(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-        //
-        console.log("element=%o, allBindingsAccessor=%o, viewModel=%o, bindingContext=%o", element, allBindingsAccessor, viewModel, bindingContext);
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = FlexGridBindingHandler;
-
-// ko.bindingHandlers.exFlexGrid = {
-//     init: function (element, valueAccessor) {
-//         $(element).focus(function () {
-//             var value = valueAccessor();
-//             value(true);
-//         });
-//         $(element).blur(function () {
-//             var value = valueAccessor();
-//             value(false);
-//         });
-//     },
-//     update: function (element, valueAccessor) {
-//         var value = valueAccessor();
-//         if (ko.unwrap(value))
-//             element.focus();
-//         else
-//             element.blur();
-//     }
-// }; 
-
-
-/***/ }),
-/* 12 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-class DemoRow {
-    constructor(id, country, date, amount, active) {
-        this.id = id;
-        this.country = country;
-        this.date = date;
-        this.amount = amount;
-        this.active = active;
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = DemoRow;
-
-// { binding: 'id', header: 'ID' },
-// { binding: 'country', header: 'country' },
-// { binding: 'Date', header: 'Date' },
-// { binding: 'amount', header: 'amount' },
-// { binding: 'active', header: 'active' }, 
-
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(14);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(16)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../../../../../node_modules/css-loader/index.js!./Application.css", function() {
-			var newContent = require("!!../../../../../node_modules/css-loader/index.js!./Application.css");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(15)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, "html, body {\r\n    height: 100%;\r\n}\r\n\r\nbody {\r\n    padding: 8px;\r\n    background-color: #F6F6F6;\r\n    box-sizing: border-box;\r\n}\r\n\r\n.split {\r\n    -webkit-box-sizing: border-box;\r\n    -moz-box-sizing: border-box;\r\n    box-sizing: border-box;\r\n\r\n    overflow-y: auto;\r\n    overflow-x: hidden;\r\n}\r\n\r\n.content {\r\n    border: 1px solid #C0C0C0;\r\n    box-shadow: inset 0 1px 2px #e4e4e4;\r\n    background-color: #fff;\r\n}\r\n\r\n.gutter {\r\n    background-color: transparent;\r\n\r\n    background-repeat: no-repeat;\r\n    background-position: 50%;\r\n}\r\n\r\n.gutter.gutter-horizontal {\r\n    cursor: col-resize;\r\n    /* background-image: url('./images/vertical.png'); */\r\n}\r\n\r\n.gutter.gutter-vertical {\r\n    cursor: row-resize;\r\n    /* background-image: url('../../images/horizontal.png'); */\r\n}\r\n\r\n.split.split-horizontal, .gutter.gutter-horizontal {\r\n    height: 100%;\r\n    float: left;\r\n}\r\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 15 */
 /***/ (function(module, exports) {
 
 /*
@@ -839,7 +236,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 16 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -885,7 +282,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(17);
+var	fixUrls = __webpack_require__(9);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -1198,7 +595,317 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 17 */
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__view_components_Application_Application__ = __webpack_require__(4);
+
+$(() => {
+    let vm = new __WEBPACK_IMPORTED_MODULE_0__view_components_Application_Application__["a" /* default */]();
+    ko.applyBindings(vm, $("html")[0]);
+});
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__FlexGridComponent_FlexGridComponent__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TopComponent_TopComponent__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__CenterComponent_CenterComponent__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__BottomComponent_BottomComponent__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ParentModal_ParentModal__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__bindings_FlexGridBindingHandler__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__entities_DemoData__ = __webpack_require__(24);
+
+
+
+
+
+/** コンポーネント名 */
+
+
+const COMPONENT_NAME = "application";
+ko.bindingHandlers.exFlexGrid = new __WEBPACK_IMPORTED_MODULE_5__bindings_FlexGridBindingHandler__["a" /* FlexGridBindingHandler */]();
+class Application {
+    constructor() {
+        this.component = COMPONENT_NAME;
+        // グリッド
+        this.flexGridComponent = new __WEBPACK_IMPORTED_MODULE_0__FlexGridComponent_FlexGridComponent__["a" /* default */]();
+        // 上
+        this.topComponent = new __WEBPACK_IMPORTED_MODULE_1__TopComponent_TopComponent__["a" /* default */]();
+        // 中央
+        this.centerComponent = new __WEBPACK_IMPORTED_MODULE_2__CenterComponent_CenterComponent__["a" /* default */]();
+        // 左
+        this.bottomComponent = new __WEBPACK_IMPORTED_MODULE_3__BottomComponent_BottomComponent__["a" /* default */]();
+        // モーダル
+        this.parentModal = new __WEBPACK_IMPORTED_MODULE_4__ParentModal_ParentModal__["a" /* default */]();
+        ko.track(this);
+    }
+    onClickShowModalBtn(self, event) {
+        console.log("self=%o, event=%o", self, event);
+        this.parentModal.show();
+    }
+    onClickLoadGridDataButton(self, event) {
+        console.log("self=%o, event=%o", self, event);
+        // let rowItems: DemoRow = [];
+        let rowItems = Array.from(Array(100).keys()).map((i) => {
+            let row = new __WEBPACK_IMPORTED_MODULE_6__entities_DemoData__["a" /* DemoRow */]();
+            row.id = i + 1;
+            row.active = true;
+            row.country = `country${i + 1}`;
+            row.date = new Date();
+            row.amount = (i + 1) * 1000;
+            return row;
+        });
+        console.log("rowItems=%o", rowItems);
+        this.flexGridComponent.setDataSource(rowItems);
+    }
+    // onClickDisplayBtn(target: this, event: any) {
+    //     let message = `text1=${this.text1}, text2=${this.text2}, textArea1=${this.textArea1}, radio1=${this.radio1}, checkBoxCheckes=${this.checkBoxCheckes}`;
+    //     alert(message);
+    // }
+    onCreateViewModel(params) {
+        console.log("Application#onCreateViewModel(): params=%o", params);
+        Split(['#subtree', '#main-contents'], {
+            sizes: [15, 85],
+            minSize: 100,
+        });
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Application;
+
+__webpack_require__(25);
+// require("./images/split/horizontal.png");
+// require("./images/split/vertical.png");
+ko.components.register(COMPONENT_NAME, {
+    template: __webpack_require__(27),
+    viewModel: {
+        createViewModel(params, componentInfo) {
+            console.log("params=%o", params);
+            let vm;
+            if (params instanceof Application) {
+                vm = params;
+            }
+            else {
+                vm = new Application();
+                let options = params ? params.options : undefined;
+                vm.onCreateViewModel(options);
+                // if (params == null) {
+                //     vm = new Application();
+                //     vm.onCreateViewModel(params.options);
+                // } else {
+                //     vm = params.options;
+                // }
+            }
+            return vm;
+        }
+    }
+});
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__FlexGrid_FlexGrid__ = __webpack_require__(6);
+
+const COMPONENT_NAME = "ex-flex-grid";
+const COMPONENT_ID = COMPONENT_NAME;
+class FlexGridComponent {
+    /** グリッド */
+    get flexGrid() {
+        return this._flexGrid;
+    }
+    /**
+     * コンストラクタ
+     */
+    constructor() {
+        this.component = COMPONENT_NAME;
+        console.log(this.component);
+        // ko.track(this);
+    }
+    /**
+     * グリッドのコンポーネントが初期化された時の処理
+     * @param self グリッドのコンポーネント
+     * @param rawFlexGrid グリッド本体
+     * @param args 引数
+     */
+    onInitialized(self, rawFlexGrid, args) {
+        console.log("self=%o, rawFlexGrid=%o, args=%o", self, rawFlexGrid, args);
+        self._flexGrid = self.createFlexGrid(rawFlexGrid);
+    }
+    createFlexGrid(rawFlexGrid) {
+        let options = {
+            autoGenerateColumns: false,
+            columns: [
+                { binding: 'id', header: 'ID' },
+                { binding: 'country', header: 'country' },
+                { binding: 'date', header: 'date' },
+                { binding: 'amount', header: 'amount' },
+                { binding: 'active', header: 'active' },
+            ],
+        };
+        console.log("options=%o", options);
+        // グリッドの初期化
+        rawFlexGrid.initialize(options);
+        rawFlexGrid.itemsSource = new wijmo.collections.CollectionView();
+        // グリッドのインスタンス生成
+        let flexGrid = new __WEBPACK_IMPORTED_MODULE_0__FlexGrid_FlexGrid__["a" /* FlexGrid */](rawFlexGrid);
+        return flexGrid;
+    }
+    // protected createColumns(): Column[] {
+    //     var columns: Column[] = [
+    //         new Column({ binding: 'id', header: 'ID' }),
+    //         new Column({ binding: 'country', header: 'country' }),
+    //         new Column({ binding: 'Date', header: 'Date' }),
+    //         new Column({ binding: 'amount', header: 'amount' }),
+    //         new Column({ binding: 'active', header: 'active' }),
+    //     ];
+    //     return columns;
+    // }
+    /**
+     * グリッドのデータを設定
+     * @param data グリッドのデータ
+     */
+    setDataSource(data) {
+        if (this._flexGrid) {
+            this._flexGrid.setDataSource(data);
+        }
+        else {
+            console.log("this._flexGrid is " + this._flexGrid);
+        }
+    }
+    /**
+     * インスタンスが生成された時の処理
+     */
+    onCreateViewModel(params) {
+        console.log("FlexGridComponent#onCreateViewModel(): params=%o", params);
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = FlexGridComponent;
+
+__webpack_require__(7);
+ko.components.register(COMPONENT_NAME, {
+    template: __webpack_require__(10),
+    viewModel: {
+        createViewModel(params, componentInfo) {
+            console.log("params=%o", params);
+            let vm;
+            if (params instanceof FlexGridComponent) {
+                vm = params;
+            }
+            else {
+                let options = params ? params.options : undefined;
+                vm = new FlexGridComponent();
+                vm.onCreateViewModel(options);
+                // if (params != null && params.options != null) {
+                //     vm = params.options;
+                // } else {
+                //     vm = new FlexGridComponent();
+                //     vm.onCreateViewModel();
+                // }
+            }
+            return vm;
+        }
+    }
+});
+// FlexGridComponent.register("./FlexGridComponent.html", "FlexGridComponent.css");
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class Column extends wijmo.grid.Column {
+    constructor(options) {
+        super(options);
+    }
+}
+/* unused harmony export Column */
+
+class Row extends wijmo.grid.Row {
+    constructor(dataItem) {
+        super(dataItem);
+    }
+}
+/* unused harmony export Row */
+
+class FlexGrid {
+    constructor(rawFlexGrid) {
+        this.raw = rawFlexGrid;
+    }
+    get itemsSource() {
+        return this.raw.itemsSource;
+    }
+    initialize(options) {
+        this.raw.initialize(options);
+        this.raw.itemsSource = new wijmo.collections.CollectionView();
+    }
+    setDataSource(data) {
+        let src = [];
+        if (data != null && data.length > 0) {
+            src.push(...data);
+        }
+        this.itemsSource.sourceCollection = src;
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = FlexGrid;
+
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(8);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(2)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../../../node_modules/css-loader/index.js!./FlexGridComponent.css", function() {
+			var newContent = require("!!../../../../../node_modules/css-loader/index.js!./FlexGridComponent.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".flex-grid .wj-flexgrid {\r\n    min-height: 100px;\r\n}", ""]);
+
+// exports
+
+
+/***/ }),
+/* 9 */
 /***/ (function(module, exports) {
 
 
@@ -1293,10 +1000,679 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 18 */
+/* 10 */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n\r\n    <div id=\"subtree\" class=\"split split-horizontal\">\r\n        subtree\r\n    </div>\r\n    <div id=\"main-contents\" class=\"split split-horizontal\">\r\n        <div>\r\n            <div>\r\n                <button data-bind=\"click: onClickLoadGridDataButton\">データ読み込み</button>\r\n            </div>\r\n            <!-- <ex-flex-grid></ex-flex-grid> -->\r\n            <!-- <div data-bind=\"component: 'ex-flex-grid'\"></div> -->\r\n            <div data-bind=\"component: { name: 'ex-flex-grid', params: flexGridComponent }\"></div>\r\n        </div>\r\n        <div>\r\n            <div data-bind=\"component: 'top-component'\"></div>\r\n        </div>\r\n\r\n        <div>\r\n            <div data-bind=\"component: 'center-component'\"></div>\r\n        </div>\r\n\r\n        <div>\r\n            <div data-bind=\"component: 'bottom-component'\"></div>\r\n        </div>\r\n\r\n        <!-- <div>\r\n            <label>text1:<input data-bind=\"value: text1\"></label>\r\n        </div>\r\n        <div>\r\n            <label>text2:<input data-bind=\"textInput: text2\"></label>\r\n        </div>\r\n        <div>\r\n            <label>textArea1:<input data-bind=\"textInput: textArea1\"></label>\r\n        </div>\r\n        <div>\r\n            <label>radio1=1:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio1\"></label>\r\n            <label>radio1=2:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio2\"></label>\r\n            <label>radio1=3:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio3\"></label>\r\n        </div>\r\n\r\n        <div>\r\n            <label>checkBox=1:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox1\"></label>\r\n            <label>checkBox=2:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox2\"></label>\r\n            <label>checkBox=3:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox3\"></label>\r\n        </div>\r\n\r\n        <button data-bind=\"event: { click: onClickDisplayBtn }\">表示</button> -->\r\n    </div>\r\n</div>";
+module.exports = "<div class=\"ex-flex-grid\">\r\n    <div data-bind=\"wjFlexGrid: { initialized: onInitialized }\"></div>\r\n\r\n    <!-- <wj-flex-grid style=\"height:300px\" items-source=\"itemsSource\" auto-generate-columns=\"false\"> -->\r\n    <!-- <div data-bind=\"wjFlexGrid: { 'initialized': 'onInitialized', 'auto-generate-columns': false }\"> -->\r\n    <!-- autoGenerateColumns -->\r\n    <!-- <div data-bind=\"exFlexGrid: 'customBindings', wjFlexGrid: { initialized: onInitialized, 'auto-generate-columns': false }\"> -->\r\n    <!-- <div data-bind=\"exFlexGrid: 'customBindings', wjFlexGrid: { initialized: onInitialized, autoGenerateColumns: false }\"> -->\r\n    <!-- <div data-bind=\"wjFlexGrid: { initialized: onInitialized }\">\r\n        <div data-bind: \"wjFlexGridColumn: { binding:'id', header:'ID' }\"></div>\r\n        <div data-bind: \"wjFlexGridColumn: { binding:'country', header:'country' }\"></div>\r\n        <div data-bind: \"wjFlexGridColumn: { binding:'Date', header:'Date' }\"></div>\r\n        <div data-bind: \"wjFlexGridColumn: { binding:'amount', header:'amount' }\"></div>\r\n        <div data-bind: \"wjFlexGridColumn: { binding:'active', header:'active' }\"></div>\r\n    </div> -->\r\n    <!-- <wj-flex-grid exFlexGrid=\"customBindings\" initialized=\"onInitialized\" auto-generate-columns=\"false\">\r\n        <wj-flex-grid-column binding=\"'id'\" header=\"'ID'\"></wj-flex-grid-column>\r\n        <wj-flex-grid-column binding=\"'country'\" header=\"'Country'\"></wj-flex-grid-column>\r\n        <wj-flex-grid-column binding=\"'date'\" header=\"'Date'\"></wj-flex-grid-column>\r\n        <wj-flex-grid-column binding=\"'amount'\" header=\"'Amount'\"></wj-flex-grid-column>\r\n        <wj-flex-grid-column binding=\"'active'\" header=\"'Active'\"></wj-flex-grid-column>\r\n    </wj-flex-grid> -->\r\n</div>";
+
+/***/ }),
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/** コンポーネント名 */
+const COMPONENT_NAME = "top-component";
+class TopComponent {
+    constructor() {
+        this.component = COMPONENT_NAME;
+        this.text1 = "";
+        this.text2 = "";
+        this.textArea1 = "";
+        this.radio1 = "";
+        this.checkBoxCheckes = [];
+        ko.track(this);
+    }
+    onCreateViewModel(params) {
+        console.log("TopComponent#onCreateViewModel(): params=%o", params);
+    }
+    onClickDisplayBtn(target, event) {
+        let message = this.createDisplayMesasge();
+        alert(message);
+    }
+    callService() {
+        try {
+            console.log('callService START');
+            let promise = new Promise(() => {
+                let dummy = new DummyData('value1');
+                console.log('callService:dummy=%o', dummy.toString());
+                return dummy;
+            });
+            return promise;
+        }
+        finally {
+            console.log('callService END');
+        }
+    }
+    createData() {
+        try {
+            console.log('createData START');
+            let promise = this.callService().then((data) => {
+                console.log('createData:data=%o', data.toString());
+                let tuple = [data, 'createData'];
+                return tuple;
+            });
+            return promise;
+        }
+        finally {
+            console.log('createData END');
+        }
+    }
+    onClickPromiseTestBtn(target, event) {
+        console.debug('onClickPromiseTestBtn START');
+        // alert('onClickPromiseTestBtn START');
+        let promise = this.createData().then((data) => {
+            // func(dumy)
+            let [dummy, str] = data;
+            console.log('1:dummy=%o, str=%o', dummy.toString(), str);
+            dummy.key2 = 'value22';
+            console.log('2-1:dummy=%o, str=%o', dummy.toString(), str);
+            return dummy;
+        });
+        promise.then((data) => {
+            console.log('2-2:data=%o', data.toString());
+            data.key3 = 'value333';
+            console.log('3-1:data=%o', data.toString());
+            return data;
+        }).then((data) => {
+            console.debug('then-3-2:data=%o', data.toString());
+            data.key4 = 'value4444';
+            console.debug('throw-4 data=%o', data.toString());
+            throw data;
+        }).then((data) => {
+            console.debug('then:data=%o', data);
+        }).catch((data) => {
+            console.error('catch:data=%o', data.toString());
+        });
+        console.debug('onClickPromiseTestBtn END');
+    }
+    onClickTupleTestBtn(target, event) {
+        let promise = new Promise((resolve) => {
+            let list = [...Array(5).keys()].map((i) => {
+                return new DummyData(`val_${i}`, '', '', '', i);
+            });
+            console.log('list=%o', list);
+            resolve(list);
+        }).then((list) => {
+            console.log('then');
+            let promiseList = list.map((dummy) => {
+                return new Promise((resolve) => {
+                    let data = [dummy, dummy.key1 + '_str1'];
+                    console.log('list.map - new Promise: data=%o', data);
+                    resolve(data);
+                }).then(([dumy, str]) => {
+                    console.log('list.map - then: dumy=%o, str=%o', dumy, str);
+                    let num = (dummy.num != undefined) ? dummy.num : -1;
+                    let data = [dummy, str, num];
+                    return data;
+                });
+            });
+            console.log('promiseList=%o', promiseList);
+            let allList = Promise.all(promiseList);
+            console.log('allList=%o', allList);
+            return allList;
+        });
+        promise.then((list) => {
+            console.debug('promise.then: list', list);
+            return list.map(data => {
+                let [dummy, str, num] = data;
+                let newData = [dummy, str, num, dummy.key1 + '_str2'];
+                console.log('Promise.all: newData', newData);
+                return newData;
+            });
+        }).then((list) => {
+            list.forEach((data) => {
+                console.debug('promise.then - last: data', data);
+            });
+            throw list;
+        }).catch((list) => {
+            console.error(list);
+        });
+        // promise.then((data) => {
+        //     console.debug('promise.then: data', data);
+        // });
+    }
+    createDisplayMesasge() {
+        let buff = [];
+        buff.push(`text1=${this.text1}`);
+        buff.push(`text2=${this.text2}`);
+        buff.push(`textArea1=${this.textArea1}`);
+        buff.push(`radio1=${this.radio1}`);
+        buff.push(`checkBoxCheckes=${this.checkBoxCheckes}`);
+        let message = buff.join(", ");
+        return message;
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = TopComponent;
+
+class DummyData {
+    // key1: string
+    // key2: string
+    // key3: string
+    constructor(key1, key2, key3, key4, num) {
+        this.key1 = key1;
+        this.key2 = key2;
+        this.key3 = key3;
+        this.key4 = key4;
+        this.num = num;
+    }
+    toString() {
+        return `key1=${this.key1},key2=${this.key2},key3=${this.key3},key4=${this.key4},num=${this.num}`;
+    }
+}
+// require("./Application.css");
+// require("./images/split/horizontal.png");
+// require("./images/split/vertical.png");
+ko.components.register(COMPONENT_NAME, {
+    template: __webpack_require__(12),
+    viewModel: {
+        createViewModel(params, componentInfo) {
+            console.log("params=%o", params);
+            let vm;
+            if (params instanceof TopComponent) {
+                vm = params;
+            }
+            else {
+                let options = params ? params.options : undefined;
+                vm = new TopComponent();
+                vm.onCreateViewModel(options);
+                // if (params == null) {
+                //     vm = new TopComponent();
+                //     vm.onCreateViewModel();
+                // } else {
+                //     vm = params.options;
+                // }
+            }
+            return vm;
+        }
+    }
+});
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+module.exports = "<div>\r\n    <div>\r\n        <button data-bind=\"event: { click: onClickPromiseTestBtn }\">Promise Test</button>\r\n    </div>\r\n    <div>\r\n        <button data-bind=\"event: { click: onClickTupleTestBtn }\">Tuple Test</button>\r\n    </div>\r\n    <div>\r\n        <label>text1:\r\n            <input data-bind=\"value: text1\">\r\n        </label>\r\n    </div>\r\n    <div>\r\n        <label>text2:\r\n            <input data-bind=\"textInput: text2\">\r\n        </label>\r\n    </div>\r\n    <div>\r\n        <label>textArea1:\r\n            <textarea data-bind=\"textInput: textArea1\"></textarea>\r\n        </label>\r\n    </div>\r\n    <div>\r\n        <label>radio1=1:\r\n            <input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio1\">\r\n        </label>\r\n        <label>radio1=2:\r\n            <input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio2\">\r\n        </label>\r\n        <label>radio1=3:\r\n            <input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio3\">\r\n        </label>\r\n    </div>\r\n\r\n    <div>\r\n        <label>checkBox=1:\r\n            <input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox1\">\r\n        </label>\r\n        <label>checkBox=2:\r\n            <input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox2\">\r\n        </label>\r\n        <label>checkBox=3:\r\n            <input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox3\">\r\n        </label>\r\n    </div>\r\n\r\n    <button data-bind=\"event: { click: onClickDisplayBtn }\">表示</button>\r\n</div>";
+
+/***/ }),
+/* 13 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/** コンポーネント名 */
+const COMPONENT_NAME = "center-component";
+class CenterComponent {
+    constructor() {
+        this.component = COMPONENT_NAME;
+        this.text1 = "";
+        this.text2 = "";
+        this.textArea1 = "";
+        this.radio1 = "";
+        this.checkBoxCheckes = [];
+        ko.track(this);
+    }
+    onCreateViewModel(params) {
+        console.log("CenterComponent#onCreateViewModel(): params=%o", params);
+    }
+    onClickDisplayBtn(target, event) {
+        let message = this.createDisplayMesasge();
+        alert(message);
+    }
+    createDisplayMesasge() {
+        let buff = [];
+        buff.push(`text1=${this.text1}`);
+        buff.push(`text2=${this.text2}`);
+        buff.push(`textArea1=${this.textArea1}`);
+        buff.push(`radio1=${this.radio1}`);
+        buff.push(`checkBoxCheckes=${this.checkBoxCheckes}`);
+        let message = buff.join(", ");
+        return message;
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = CenterComponent;
+
+// require("./Application.css");
+// require("./images/split/horizontal.png");
+// require("./images/split/vertical.png");
+ko.components.register(COMPONENT_NAME, {
+    template: __webpack_require__(14),
+    viewModel: {
+        createViewModel(params, componentInfo) {
+            console.log("params=%o", params);
+            let vm;
+            if (params instanceof CenterComponent) {
+                vm = params;
+            }
+            else {
+                vm = new CenterComponent();
+                let options = params ? params.options : undefined;
+                vm.onCreateViewModel(options);
+                // vm.onCreateViewModel(params.options);
+                // if (params == null) {
+                //     vm = new CenterComponent();
+                //     vm.onCreateViewModel();
+                // } else {
+                //     vm = params.options;
+                // }
+            }
+            return vm;
+        }
+    }
+});
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+module.exports = "<div>\r\n    <div>\r\n        <label>text1:<input data-bind=\"value: text1\"></label>\r\n    </div>\r\n    <div>\r\n        <label>text2:<input data-bind=\"textInput: text2\"></label>\r\n    </div>\r\n    <div>\r\n        <label>textArea1:<textarea data-bind=\"textInput: textArea1\"></textarea></label>\r\n    </div>\r\n    <div>\r\n        <label>radio1=1:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio1\"></label>\r\n        <label>radio1=2:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio2\"></label>\r\n        <label>radio1=3:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio3\"></label>\r\n    </div>\r\n\r\n    <div>\r\n        <label>checkBox=1:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox1\"></label>\r\n        <label>checkBox=2:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox2\"></label>\r\n        <label>checkBox=3:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox3\"></label>\r\n    </div>\r\n\r\n    <button data-bind=\"event: { click: onClickDisplayBtn }\">表示</button>\r\n</div>";
+
+/***/ }),
+/* 15 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/** コンポーネント名 */
+const COMPONENT_NAME = "bottom-component";
+class BottomComponent {
+    constructor() {
+        this.component = COMPONENT_NAME;
+        this.text1 = "";
+        this.text2 = "";
+        this.textArea1 = "";
+        this.radio1 = "";
+        this.checkBoxCheckes = [];
+        ko.track(this);
+    }
+    onCreateViewModel(params) {
+        console.log("BottomComponent#onCreateViewModel(): params=%o", params);
+    }
+    onClickDisplayBtn(target, event) {
+        let message = this.createDisplayMesasge();
+        alert(message);
+    }
+    createDisplayMesasge() {
+        let buff = [];
+        buff.push(`text1=${this.text1}`);
+        buff.push(`text2=${this.text2}`);
+        buff.push(`textArea1=${this.textArea1}`);
+        buff.push(`radio1=${this.radio1}`);
+        buff.push(`checkBoxCheckes=${this.checkBoxCheckes}`);
+        let message = buff.join(", ");
+        return message;
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = BottomComponent;
+
+// require("./Application.css");
+// require("./images/split/horizontal.png");
+// require("./images/split/vertical.png");
+ko.components.register(COMPONENT_NAME, {
+    template: __webpack_require__(16),
+    viewModel: {
+        createViewModel(params, componentInfo) {
+            console.log("params=%o", params);
+            let vm;
+            if (params instanceof BottomComponent) {
+                vm = params;
+            }
+            else {
+                vm = new BottomComponent();
+                let options = params ? params.options : undefined;
+                vm.onCreateViewModel(options);
+                // vm.onCreateViewModel(params.options);
+                // if (params == null) {
+                //     vm = new BottomComponent();
+                //     vm.onCreateViewModel(params.options);
+                // } else {
+                //     vm = params.options;
+                // }
+            }
+            return vm;
+        }
+    }
+});
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports) {
+
+module.exports = "<div>\r\n    <div>\r\n        <label>text1:<input data-bind=\"value: text1\"></label>\r\n    </div>\r\n    <div>\r\n        <label>text2:<input data-bind=\"textInput: text2\"></label>\r\n    </div>\r\n    <div>\r\n        <label>textArea1:<textarea data-bind=\"textInput: textArea1\"></textarea></label>\r\n    </div>\r\n    <div>\r\n        <label>radio1=1:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio1\"></label>\r\n        <label>radio1=2:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio2\"></label>\r\n        <label>radio1=3:<input type=\"radio\" name=\"radioGroup\" data-bind=\"checked: radio1\" value=\"radio3\"></label>\r\n    </div>\r\n\r\n    <div>\r\n        <label>checkBox=1:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox1\"></label>\r\n        <label>checkBox=2:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox2\"></label>\r\n        <label>checkBox=3:<input type=\"checkbox\" data-bind=\"checked: checkBoxCheckes\" value=\"checkbox3\"></label>\r\n    </div>\r\n\r\n    <button data-bind=\"event: { click: onClickDisplayBtn }\">表示</button>\r\n</div>";
+
+/***/ }),
+/* 17 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__IModal__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ChildModal_ChildModal__ = __webpack_require__(18);
+
+
+const COMPONENT_NAME = "parent-modal";
+const COMPONENT_ID = COMPONENT_NAME + '-id';
+const TITLE = "親モーダル";
+class ParentModal extends __WEBPACK_IMPORTED_MODULE_0__IModal__["a" /* ModalBase */] {
+    constructor() {
+        super(COMPONENT_NAME, COMPONENT_ID);
+    }
+    // constructor(params?: ModalParams | any) {
+    //     let superParams: ModalParams;
+    //     if (params instanceof ModalParams) {
+    //         superParams = new ModalParams(COMPONENT_ID, params.parentId, TITLE);
+    //     } else {
+    //         superParams = new ModalParams(COMPONENT_ID, undefined, TITLE);
+    //     }
+    //     super(COMPONENT_NAME, superParams);
+    //     // super(COMPONENT_NAME, superParams);
+    //     // this.component = COMPONENT_NAME;
+    //     // this.componentId = COMPONENT_ID;
+    //     // this.title = TITLE;
+    //     // let childParams = new ModalParams(this.componentId);
+    //     this.childModal = new ChildModal(this.componentId);
+    //     ko.track(this);
+    // }
+    // show<T>(params?: T): void {
+    //     let options: ModalOptions = {
+    //         backdrop: "static",
+    //         show: true,
+    //         keyboard: true,
+    //     };
+    //     console.log("params=%o, options=%o", params, options);
+    //     $(`#${this.componentId}`).modal(options);
+    // }
+    onClickShowModalBtn(self, event) {
+        console.log("self=%o, event=%o", self, event);
+        this.childModal.show();
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = ParentModal;
+
+ko.components.register(COMPONENT_NAME, {
+    template: __webpack_require__(22),
+    viewModel: {
+        createViewModel(params, componentInfo) {
+            console.log("params=%o", params);
+            let vm;
+            if (params instanceof ParentModal) {
+                vm = params;
+            }
+            else {
+                let options = params ? params.options : undefined;
+                vm = new ParentModal();
+                vm.onCreateViewModel(options);
+                // if (params == null) {
+                //     vm = new ParentModal();
+                //     vm.onCreateViewModel();
+                // } else {
+                //     vm = new ParentModal(params.options);
+                //     // vm = params.options;
+                // }
+                vm.childModal = new __WEBPACK_IMPORTED_MODULE_1__ChildModal_ChildModal__["a" /* default */]();
+                ko.track(vm);
+            }
+            return vm;
+        }
+    }
+});
+
+
+/***/ }),
+/* 18 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__IModal__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SubChildModal_SubChildModal__ = __webpack_require__(19);
+
+
+const COMPONENT_NAME = "child-modal";
+const COMPONENT_ID = COMPONENT_NAME + '-id';
+const TITLE = "子モーダル";
+class ChildModal extends __WEBPACK_IMPORTED_MODULE_0__IModal__["a" /* ModalBase */] {
+    constructor() {
+        super(COMPONENT_NAME, COMPONENT_ID);
+    }
+    // constructor(parentId: string, title?: string) {
+    //     super(COMPONENT_NAME, new ModalParams(COMPONENT_ID, parentId, (title != null) ? title : TITLE));
+    //     // this.component = COMPONENT_NAME;
+    //     // if (params != null) {
+    //     //     if (params.parentId != null) {
+    //     //         this.componentId = `${params.parentId}-${COMPONENT_ID}`;
+    //     //     } else {
+    //     //         this.componentId = COMPONENT_ID;
+    //     //     }
+    //     //     if (params.title != null) {
+    //     //         this.title = params.title;
+    //     //     } else {
+    //     //         this.title = TITLE;
+    //     //     }
+    //     // }
+    //     // let subChildModalParams = new ModalParams('sub', 'サブ子モーダル');
+    //     this.subChildModal = new SubChildModal(this.componentId);
+    //     ko.track(this);
+    // }
+    // show<T>(params?: T): void {
+    //     let options: ModalOptions = {
+    //         backdrop: "static",
+    //         show: true,
+    //         keyboard: true,
+    //     };
+    //     console.log("params=%o, options=%o", params, options);
+    //     $(`#${this.componentId}`).modal(options);
+    // }
+    onClickShowModalBtn(self, event) {
+        console.log("self=%o, event=%o", self, event);
+        this.subChildModal.show();
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = ChildModal;
+
+ko.components.register(COMPONENT_NAME, {
+    template: __webpack_require__(21),
+    viewModel: {
+        createViewModel(params, componentInfo) {
+            console.log("params=%o", params);
+            let vm;
+            if (params instanceof ChildModal) {
+                vm = params;
+            }
+            else {
+                let options = params ? params.options : undefined;
+                vm = new ChildModal();
+                vm.onCreateViewModel(options);
+                // if (params == null) {
+                //     vm = new ChildModal();
+                //     vm.onCreateViewModel();
+                // } else {
+                //     vm = new ChildModal(params.options);
+                //     // vm = params.options;
+                // }
+                vm.subChildModal = new __WEBPACK_IMPORTED_MODULE_1__SubChildModal_SubChildModal__["a" /* default */]();
+                ko.track(vm);
+            }
+            return vm;
+        }
+    }
+});
+
+
+/***/ }),
+/* 19 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__IModal__ = __webpack_require__(0);
+
+const COMPONENT_NAME = "sub-child-modal";
+const COMPONENT_ID = COMPONENT_NAME + '-id';
+const TITLE = "サブ子モーダル";
+class SubChildModal extends __WEBPACK_IMPORTED_MODULE_0__IModal__["a" /* ModalBase */] {
+    constructor() {
+        super(COMPONENT_NAME, COMPONENT_ID);
+        // ko.track(this);
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = SubChildModal;
+
+ko.components.register(COMPONENT_NAME, {
+    template: __webpack_require__(20),
+    viewModel: {
+        createViewModel(params, componentInfo) {
+            console.log("params=%o", params);
+            let vm;
+            if (params instanceof SubChildModal) {
+                vm = params;
+            }
+            else {
+                let options = params ? params.options : undefined;
+                // vm = new SubChildModal(options);
+                vm = new SubChildModal();
+                vm.onCreateViewModel(options);
+                // if (params == null) {
+                //     vm = new SubChildModal();
+                //     vm.onCreateViewModel();
+                // } else {
+                //     vm = new SubChildModal(params.options);
+                //     // vm = params.options;
+                // }
+                ko.track(vm);
+            }
+            return vm;
+        }
+    }
+});
+
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"modal fade\" data-bind=\"attr: { id: componentId }\" role=\"dialog\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog\">\r\n        <div class=\"modal-content\">\r\n\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n                    <span aria-hidden=\"true\">&times;</span>\r\n                </button>\r\n                <h4 class=\"modal-title\" data-bind=\"text: title\"></h4>\r\n            </div>\r\n\r\n            <div class=\"modal-body\">\r\n                <div>\r\n                    サブ子モーダル\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"modal-footer\">\r\n                <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">閉じる</button>\r\n            </div>\r\n\r\n        </div>\r\n    </div>\r\n</div>";
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"modal fade\" data-bind=\"attr: { id: componentId }\" role=\"dialog\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog\">\r\n        <div class=\"modal-content\">\r\n\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n                    <span aria-hidden=\"true\">&times;</span>\r\n                </button>\r\n                <h4 class=\"modal-title\" data-bind=\"text: title\"></h4>\r\n            </div>\r\n\r\n            <div class=\"modal-body\">\r\n                <div>\r\n                    子モーダル\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"modal-footer\">\r\n                <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">閉じる</button>\r\n            </div>\r\n\r\n        </div>\r\n    </div>\r\n</div>";
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"modal fade\" data-bind=\"attr: { id: componentId }\" role=\"dialog\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog\">\r\n        <div class=\"modal-content\">\r\n\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n                    <span aria-hidden=\"true\">&times;</span>\r\n                </button>\r\n                <h4 class=\"modal-title\" data-bind=\"text: title\"></h4>\r\n            </div>\r\n\r\n            <div class=\"modal-body\">\r\n                <div>\r\n                    親モーダル\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"modal-footer\">\r\n                <button class=\"btn btn-primary\" data-bind=\"event: { click: onClickShowModalBtn }\">子モーダル表示</button>\r\n\r\n                <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">閉じる</button>\r\n            </div>\r\n\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<!-- <child-modal params=\"parent: $data\"></child-modal> -->";
+
+/***/ }),
+/* 23 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class FlexGridBindingHandler {
+    init(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+        //
+        console.log("element=%o, allBindingsAccessor=%o, viewModel=%o, bindingContext=%o", element, allBindingsAccessor, viewModel, bindingContext);
+    }
+    update(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+        //
+        console.log("element=%o, allBindingsAccessor=%o, viewModel=%o, bindingContext=%o", element, allBindingsAccessor, viewModel, bindingContext);
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = FlexGridBindingHandler;
+
+// ko.bindingHandlers.exFlexGrid = {
+//     init: function (element, valueAccessor) {
+//         $(element).focus(function () {
+//             var value = valueAccessor();
+//             value(true);
+//         });
+//         $(element).blur(function () {
+//             var value = valueAccessor();
+//             value(false);
+//         });
+//     },
+//     update: function (element, valueAccessor) {
+//         var value = valueAccessor();
+//         if (ko.unwrap(value))
+//             element.focus();
+//         else
+//             element.blur();
+//     }
+// }; 
+
+
+/***/ }),
+/* 24 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class DemoRow {
+    constructor(id, country, date, amount, active) {
+        this.id = id;
+        this.country = country;
+        this.date = date;
+        this.amount = amount;
+        this.active = active;
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = DemoRow;
+
+// { binding: 'id', header: 'ID' },
+// { binding: 'country', header: 'country' },
+// { binding: 'Date', header: 'Date' },
+// { binding: 'amount', header: 'amount' },
+// { binding: 'active', header: 'active' }, 
+
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(26);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(2)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../../../node_modules/css-loader/index.js!./Application.css", function() {
+			var newContent = require("!!../../../../../node_modules/css-loader/index.js!./Application.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "html, body {\r\n    height: 100%;\r\n}\r\n\r\nbody {\r\n    padding: 8px;\r\n    background-color: #F6F6F6;\r\n    box-sizing: border-box;\r\n}\r\n\r\n.split {\r\n    -webkit-box-sizing: border-box;\r\n    -moz-box-sizing: border-box;\r\n    box-sizing: border-box;\r\n\r\n    overflow-y: auto;\r\n    overflow-x: hidden;\r\n}\r\n\r\n.content {\r\n    border: 1px solid #C0C0C0;\r\n    box-shadow: inset 0 1px 2px #e4e4e4;\r\n    background-color: #fff;\r\n}\r\n\r\n.gutter {\r\n    background-color: transparent;\r\n\r\n    background-repeat: no-repeat;\r\n    background-position: 50%;\r\n}\r\n\r\n.gutter.gutter-horizontal {\r\n    cursor: col-resize;\r\n    /* background-image: url('./images/vertical.png'); */\r\n}\r\n\r\n.gutter.gutter-vertical {\r\n    cursor: row-resize;\r\n    /* background-image: url('../../images/horizontal.png'); */\r\n}\r\n\r\n.split.split-horizontal, .gutter.gutter-horizontal {\r\n    height: 100%;\r\n    float: left;\r\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports) {
+
+module.exports = "<div>\r\n\r\n    <div id=\"subtree\" class=\"split split-horizontal\">\r\n        subtree\r\n    </div>\r\n    <div id=\"main-contents\" class=\"split split-horizontal\">\r\n\r\n        <div>\r\n            <button class=\"btn btn-primary\" data-bind=\"event: { click: onClickShowModalBtn }\">モーダル表示</button>\r\n        </div>\r\n\r\n        <div>\r\n            <div>\r\n                <button data-bind=\"click: onClickLoadGridDataButton\">データ読み込み</button>\r\n            </div>\r\n            <!-- <ex-flex-grid></ex-flex-grid> -->\r\n            <!-- <div data-bind=\"component: 'ex-flex-grid'\"></div> -->\r\n            <div data-bind=\"component: { name: 'ex-flex-grid', params: flexGridComponent }\"></div>\r\n        </div>\r\n        <div>\r\n            <div data-bind=\"component: 'top-component'\"></div>\r\n        </div>\r\n\r\n        <div>\r\n            <div data-bind=\"component: 'center-component'\"></div>\r\n        </div>\r\n\r\n        <div>\r\n            <div data-bind=\"component: 'bottom-component'\"></div>\r\n        </div>\r\n\r\n        <div>\r\n            <parent-modal params=\"parent: $data\"></parent-modal>\r\n            <!-- <child-modal></child-modal> -->\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ })
 /******/ ]);

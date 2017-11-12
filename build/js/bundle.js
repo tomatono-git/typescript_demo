@@ -1356,31 +1356,6 @@ class ParentModal extends __WEBPACK_IMPORTED_MODULE_0__IModal__["a" /* ModalBase
     constructor() {
         super(COMPONENT_NAME, COMPONENT_ID);
     }
-    // constructor(params?: ModalParams | any) {
-    //     let superParams: ModalParams;
-    //     if (params instanceof ModalParams) {
-    //         superParams = new ModalParams(COMPONENT_ID, params.parentId, TITLE);
-    //     } else {
-    //         superParams = new ModalParams(COMPONENT_ID, undefined, TITLE);
-    //     }
-    //     super(COMPONENT_NAME, superParams);
-    //     // super(COMPONENT_NAME, superParams);
-    //     // this.component = COMPONENT_NAME;
-    //     // this.componentId = COMPONENT_ID;
-    //     // this.title = TITLE;
-    //     // let childParams = new ModalParams(this.componentId);
-    //     this.childModal = new ChildModal(this.componentId);
-    //     ko.track(this);
-    // }
-    // show<T>(params?: T): void {
-    //     let options: ModalOptions = {
-    //         backdrop: "static",
-    //         show: true,
-    //         keyboard: true,
-    //     };
-    //     console.log("params=%o, options=%o", params, options);
-    //     $(`#${this.componentId}`).modal(options);
-    // }
     onClickShowModalBtn(self, event) {
         console.log("self=%o, event=%o", self, event);
         this.childModal.show();
@@ -1401,13 +1376,6 @@ ko.components.register(COMPONENT_NAME, {
                 let options = params ? params.options : undefined;
                 vm = new ParentModal();
                 vm.onCreateViewModel(options);
-                // if (params == null) {
-                //     vm = new ParentModal();
-                //     vm.onCreateViewModel();
-                // } else {
-                //     vm = new ParentModal(params.options);
-                //     // vm = params.options;
-                // }
                 vm.childModal = new __WEBPACK_IMPORTED_MODULE_1__ChildModal_ChildModal__["a" /* default */]();
                 ko.track(vm);
             }
